@@ -7,3 +7,6 @@
 
 # Markdown
 /mdx/
+
+# Environment variables
+.env

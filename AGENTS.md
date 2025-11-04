@@ -1,358 +1,185 @@
-# Project overview
+<!-- OPENSPEC:START -->
 
-This is a **React 19 + Material-UI v7 + React Router v7 (Framework Mode)** dashboard application with server-side rendering (SSR).
+# OpenSpec Instructions
 
-**Architecture:**
+These instructions are for AI assistants working in this project.
 
-- **Frontend**: React 19 with TypeScript (strict mode)
-- **UI Framework**: Material-UI v7 (with MUI X components: DataGrid, Charts, DatePickers, TreeView)
-- **Routing**: React Router v7 in Framework Mode (SSR-enabled, file-based routing)
-- **Bundler**: Vite 6
-- **Server**: Node.js SSR server (`@react-router/serve`)
-- **Styling**: Material-UI theming system (no TailwindCSS)
+Always open `@/openspec/AGENTS.md` when the request:
 
-**Main components:**
+- Mentions planning or proposals (words like proposal, spec, change, plan)
+- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
+- Sounds ambiguous and you need the authoritative spec before coding
 
-- `app/components/dashboard/` - Dashboard UI components (metrics, charts, tables, product tree, users by country)
-- `app/components/icons/` - Custom navigation icons using MUI SvgIcon
-- `app/layouts/` - Layout wrappers (dashboard layout with sidebar and navbar)
-- `app/routes/` - File-based routes (React Router v7 convention)
-- `app/providers/` - Global providers (theme, app context)
-- `app/constants/` - Mock data and constants
-- `app/theme.ts` - Material-UI theme configuration
+Use `@/openspec/AGENTS.md` to learn:
 
----
+- How to create and apply change proposals
+- Spec format and conventions
+- Project structure and guidelines
 
-## Import and Naming Policy (Absolute alias '@/')
+Keep this managed block so 'openspec update' can refresh the instructions.
 
-This rule standardizes how modules are imported and how component/page files are named across the codebase.
+<!-- OPENSPEC:END -->
 
-### Absolute imports (required)
+# AGENTS.md
 
-- All internal imports must use the absolute alias starting with `@/`.
-- Do not use any relative import paths like `./`, `../`, or `../../` for app code.
+This is the canonical entrypoint for AI coding agents (e.g., Amp, Cursor, Codex, Droid, etc...) working in this repository. It provides a concise project overview and points to the nearest per-folder AGENTS.md files that contain the actionable, context-specific rules.
 
-Examples:
+## Project Snapshot
 
-```ts
-// ✅ Do
-import NavItem from '@/components/dashboard/nav-item'
-import AnalyticsIcon from '@/components/icons/analytics-icon'
+**Repository Type**: Simple single project (not a monorepo)  
+**Primary Tech Stack**: React 19, React Router v7 Framework Mode, Material-UI v7, TypeScript (strict), Vite  
+**Status**: Boilerplate starter-kit with React Router v7, MUI v7, TanStack Query v5 (planned), Context API  
+**Testing**: Not yet configured (planned for future integration)
 
-// ❌ Don't
-import NavItem from '../../components/dashboard/nav-item'
-import AnalyticsIcon from '../icons/analytics-icon'
+For detailed patterns and conventions, see [app/AGENTS.md](app/AGENTS.md)
+
+## Root Setup Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Development server (with HMR)
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Start CSR preview (client-side only)
+npm run start:csr
+
+# Type checking (generates route types + TypeScript check)
+npm run typecheck
+
+# Linting
+npm run lint
+npm run lint:fix
+
+# Code formatting
+npm run prettier
+npm run prettier:fix
 ```
 
-### File naming for components and pages (kebab-case)
+## Universal Conventions
 
-- Component and page filenames must be in kebab-case: lowercase words separated by hyphens.
-- Examples of valid names: `nav-item.tsx`, `help-icon.tsx`, `user-settings.tsx`.
-- Avoid PascalCase or camelCase filenames for these files.
+### Code Style
 
-```text
-✅ Allowed:  nav-item.tsx, help-icon.tsx, users-list.tsx
-❌ Avoid:    NavItem.tsx, HelpIcon.tsx, navItem.tsx
+- **TypeScript**: Strict mode enabled (`strict: true` in `tsconfig.json`)
+- **Linting**: ESLint with TypeScript ESLint, React Hooks, and React Refresh plugins
+- **Formatting**: Prettier (check before committing)
+- **Imports**: **MUST** use absolute `@/` alias for all app code (no relative imports)
+- **File Naming**: Components and pages use kebab-case (e.g., `nav-item.tsx`, `dashboard-layout.tsx`)
+
+### UI Library
+
+- **Material-UI v7 ONLY** - No other UI libraries allowed
+- Tree-shake imports: `import Button from '@mui/material/Button'`
+- Icons from `@mui/icons-material` only
+- Use `sx` prop for component styling; `styled` only for global reusable components
+- Dark mode via CSS variables (never check `theme.palette.mode`)
+
+### React Router v7 Framework Mode
+
+- File-based routing in `app/routes/`
+- Route config in `app/routes.ts`
+- Always verify API against latest docs via Context7 MCP or web research
+
+### Commit & PR Guidelines
+
+- Follow conventional commit format when possible
+- Run `npm run typecheck && npm run lint && npm run prettier` before PR
+- Ensure all imports use `@/` alias
+- Verify MUI v7 patterns (no deprecated APIs)
+
+## Security & Secrets
+
+- **Never commit** `.env` files (already in `.gitignore`)
+- Store environment variables in `.env` (not version controlled)
+- No PII or sensitive tokens in code
+- Build outputs (`build/`, `.react-router/`) are gitignored
+
+## JIT Index (what to open, not what to paste)
+
+### Directory Structure
+
+- **Application Code**: `app/` → [see app/AGENTS.md](app/AGENTS.md) for detailed patterns
+  - Components: `app/components/**` - Reusable UI components
+  - Routes: `app/routes/**` - React Router route files
+  - Layouts: `app/layouts/**` - Layout wrappers for routes
+  - Providers: `app/providers/**` - React Context providers
+  - Constants: `app/constants/**` - Constants and mock data
+  - Types: `app/types/**` - TypeScript type definitions
+  - Assets: `app/assets/**` - Static assets (images, fonts)
+  - Styles: `app/styles/**` - Global CSS styles
+  - Hooks: `app/hooks/**` - Custom React hooks (planned)
+  - Utils: `app/utils/**` - Utility functions (planned)
+  - Lib: `app/lib/**` - External library wrappers (planned)
+  - Queries: `app/queries/**` - TanStack Query hooks (planned)
+  - Tests: `app/tests/**` - Test files (planned)
+  - Theme: `app/theme.ts` - MUI theme configuration
+  - Root: `app/root.tsx` - Root component entry point
+  - Routes Config: `app/routes.ts` - Route configuration
+
+### Quick Find Commands
+
+```bash
+# Find a React component
+rg -n "export (default )?function .*" app/components
+
+# Find a route file
+rg -n "export default function" app/routes
+
+# Find MUI component usage
+rg -n "from '@mui/material/" app
+
+# Find icon imports
+rg -n "from '@mui/icons-material/" app
+
+# Find theme.palette.mode usage (anti-pattern)
+rg -n "theme\.palette\.mode" app
+
+# Find relative imports (anti-pattern)
+rg -n "from '\\.\\.?/" app
+
+# Find custom hooks (when hooks/ directory is populated)
+rg -n "export (const|function) use" app/hooks
+
+# Find utility functions (when utils/ directory is populated)
+rg -n "export (function|const)" app/utils
+
+# Find test files (when tests/ directory is populated)
+find app/tests -name "*.test.ts*" -o -name "*.spec.ts*"
+
+# List all directories in app/
+ls -d app/*/
 ```
 
-### Consistency requirements
-
-- When creating or modifying files, ensure import paths and filenames follow this policy.
-- If you touch a file that uses relative imports, convert them to `@/` within the same edit.
-- Keep import paths stable and avoid deep relative traversals entirely.
-
-### Project configuration for the '@/" alias
-
-Ensure the alias is configured in both TypeScript and Vite so editors and builds resolve `@/` correctly.
-
-- TypeScript: update [tsconfig.json](tsconfig.json)
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["app/*"]
-    }
-  }
-}
-```
-
-- Vite: update [vite.config.ts](vite.config.ts)
-
-```ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'node:url'
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./app', import.meta.url))
-    }
-  }
-})
-```
-
-Following this rule keeps imports consistent, readable, and refactor-friendly across the entire codebase.
-
----
-
-## Material‑UI v7 UI Policy (REQUIRED)
-
-These rules apply to all React/TypeScript files in this project. The Cursor Agent must strictly follow them when building the UI.
-
-### Version and documentation
-
-- This project uses Material‑UI v7. Reference: [Upgrade to v7](https://mui.com/material-ui/migration/upgrade-to-v7/).
-- Use the MUI MCP Server whenever help is needed: [Getting started with MCP](https://mui.com/material-ui/getting-started/mcp/).
-
-### UI library usage
-
-- The entire UI (components, icons, theme, spacing, typography, etc.) must use Material‑UI only.
-- Do not add or use any third‑party UI libraries.
-
-### Imports (Tree‑shaking) — Required
-
-- Always import specific components/icons to optimize bundle size. Correct examples:
-
-```tsx
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AlarmIcon from '@mui/icons-material/Alarm'
-```
-
-- Do not use deep imports beyond one level (wrong: `@mui/material/styles/createTheme`).
-- Do not use modern/esm aliases removed in v7 (e.g., `@mui/material/modern`), or Vite aliases that force ESM for icons.
-- Import theming APIs only from `@mui/material/styles`, e.g.:
-
-```tsx
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-```
-
-### Icon rules
-
-- Prefer icons from `@mui/icons-material`.
-- Only if no suitable icon exists, create a custom icon using `SvgIcon` and ensure it inherits MUI color/size/theme props:
-
-```tsx
-import SvgIcon from '@mui/material/SvgIcon'
-
-function CustomIcon(props) {
-  return (
-    <SvgIcon {...props} viewBox='0 0 24 24'>
-      <path d='M...' />
-    </SvgIcon>
-  )
-}
-```
-
-### Theming and styling
-
-- Standardize theming via Material‑UI: use `ThemeProvider`, `createTheme`, `sx`, `styled`, `useTheme`, and system props.
-- Prefer the `sx` prop for all component‑level styling. Use `styled` only to create global, reusable components shared across multiple pages/routes. This keeps the codebase consistent, maintainable, and leverages MUI optimizations.
-- Do not use `experimentalStyled` (removed in v7). Use `styled` from `@mui/material/styles`.
-- When multiple color schemes are enabled, prefer CSS variables via `theme.vars.*`. If runtime light/dark calculations are needed, apply `theme.applyStyles` accordingly.
-- Import `StyledEngineProvider` from `@mui/material/styles` (do not import from `@mui/material`).
-
-### Dark mode handling and SSR flicker (REQUIRED)
-
-- This app previously experienced "dark mode flicker" on SSR. Follow MUI's official guidance to prevent it: use CSS variables and the initialization script. References: https://mui.com/material-ui/customization/dark-mode/#dark-mode-flicker and https://mui.com/material-ui/customization/css-theme-variables/configuration/#preventing-ssr-flickering
-- Do not check `theme.palette.mode` to branch styles or logic. Avoid patterns like `theme.palette.mode === 'dark'` or ternaries based on `theme.palette.mode`.
-- Required: Use `theme.applyStyles()` to target specific modes. Prefer CSS variables via `colorSchemes` and initialize mode on the server to avoid flicker. Reference: https://mui.com/material-ui/customization/dark-mode/#styling-in-dark-mode
-
-#### Allowed patterns
-
-```tsx
-import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
-
-// Using styled
-const Panel = styled('div')(({ theme }) => [
-  { backgroundColor: theme.palette.background.paper },
-  theme.applyStyles('dark', {
-    backgroundColor: theme.palette.grey[900]
-  })
-])
-
-// Using sx
-function Example() {
-  return (
-    <Box
-      sx={[
-        (theme) => ({ color: theme.palette.text.primary }),
-        (theme) =>
-          theme.applyStyles('dark', {
-            color: theme.palette.secondary.main
-          })
-      ]}
-    />
-  )
-}
-```
-
-#### Disallowed patterns (must migrate)
-
-```tsx
-// Any direct mode checks are disallowed
-const color = theme.palette.mode === 'dark' ? '#fff' : '#000'
-const styles = {
-  backgroundColor: theme.palette.mode === 'dark' ? '#121212' : '#ffffff'
-}
-```
-
-#### SSR anti-flicker basics
-
-```tsx
-import { InitColorSchemeScript, ThemeProvider, createTheme } from '@mui/material/styles'
-
-const theme = createTheme({
-  colorSchemes: {
-    dark: true // enable built-in dark scheme
-  }
-})
-
-// In your document/root HTML
-// <InitColorSchemeScript defaultMode="system" />
-
-// In your app
-// <ThemeProvider theme={theme} defaultMode="system" disableTransitionOnChange>
-```
-
-- Enforcement: If any code uses `theme.palette.mode` (e.g., equality checks, ternaries, or logical branching), raise a warning and propose a concrete refactor using `theme.applyStyles()` as shown above.
-
-### React 18 and below compatibility
-
-- If the project uses React 18 or below, align `react-is` with the React version to avoid runtime issues (see the v7 guide).
-
-### Mandatory MCP usage for MUI issues
-
-- For any MUI‑related question, migration, API uncertainty, or error, proactively use the MUI MCP Server to search, debug, or resolve before asking the user.
-
-### Do / Don’t checklist
-
-- Do: Tree‑shake imports from `@mui/material/<Component>` and `@mui/icons-material/<Icon>`.
-- Do: Use `@mui/material/styles` for theming and type augmentation.
-- Don’t: Deep import nested paths within MUI packages.
-- Don’t: Add or use any non‑MUI UI libraries.
-- Don’t: Import `StyledEngineProvider` from `@mui/material`.
-
-### Grid — Material‑UI v7 (current API)
-
-- Import the stable component:
-
-```tsx
-import Grid from '@mui/material/Grid'
-```
-
-### Key changes in v7:
-
-- The sizing props `xs`/`sm`/`md`/`lg`/`xl` were replaced by a single `size` prop.
-- The `item` prop is no longer used. A `Grid` is always an item; use `container` to turn it into a container.
-- Use `spacing`, `rowSpacing`, and `columnSpacing` for gaps; use `columns` to change the 12‑column default; use `offset` to push items.
-- Prefer `Stack` inside a `Grid` for vertical stacking; `direction="column"` on `Grid` is not supported.
-
-### Basic usage:
-
-```tsx
-<Grid container spacing={2}>
-  <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-    {/* Item A */}
-  </Grid>
-  <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-    {/* Item B */}
-  </Grid>
-  <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-    {/* Item C */}
-  </Grid>
-  <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-    {/* Item D */}
-  </Grid>
-  {/* Nested grids are allowed */}
-  <Grid container size={12} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-    <Grid size={6}>{/* Nested 1 */}</Grid>
-    <Grid size={6}>{/* Nested 2 */}</Grid>
-  </Grid>
-```
-
-### Columns and offset:
-
-```tsx
-<Grid container spacing={2} columns={16}>
-  <Grid size={8}>{/* 8/16 */}</Grid>
-  <Grid size={8}>{/* 8/16 */}</Grid>
-</Grid>
-
-<Grid container spacing={3}>
-  <Grid size={{ xs: 6, md: 2 }} offset={{ xs: 3, md: 0 }} />
-  <Grid size={{ xs: 4, md: 2 }} offset={{ md: 'auto' }} />
-</Grid>
-```
-
-### Migration from pre‑v7:
-
-```tsx
-// Before (v5/v6 style)
-<Grid container spacing={2}>
-  <Grid item xs={12} md={6}>...</Grid>
-</Grid>
-
-// After (v7)
-<Grid container spacing={2}>
-  <Grid size={{ xs: 12, md: 6 }}>...</Grid>
-</Grid>
-```
-
-### Docs: see MUI Grid v7 usage and API at https://mui.com/material-ui/react-grid/
-
-### References:
-
-- MUI v7 Upgrade Guide: https://mui.com/material-ui/migration/upgrade-to-v7/
-- MUI MCP Server: https://mui.com/material-ui/getting-started/mcp/
-
----
-
-## React Router v7 Framework Mode — Research-First Policy
-
-When handling anything related to React Router V7 in "Framework Mode" in this repository, follow a research-first workflow to ensure instructions and code changes are based on the latest authoritative information.
-
-- **Scope (when to apply)**: Any question, bug, migration, refactor, or feature involving React Router v7 or the term "Framework Mode".
-
-- **Primary sources to use (in order)**:
-  1. Context7 MCP Server: Resolve and fetch the latest official React Router documentation.
-  2. Web research: If Context7 is unavailable or insufficient, search authoritative sources and cite them.
-  3. Local notes in this repo: Cross-check conclusions with internal docs.
-
-### Required Workflow
-
-1. Use Context7 MCP
-
-- Resolve the library ID for React Router (e.g., by querying "react-router" or "remix-run/react-router").
-- Fetch docs focused on: "Framework Mode", "v7", "file-based routing", "data APIs", "loaders", "actions", "defer", "streaming", and "migration".
-- Prefer official docs, release notes, and RFCs.
-
-2. Fall back to Web Research
-
-- If Context7 lacks coverage or seems outdated, perform web research.
-- Prefer official docs and primary sources. Include short citations in responses when external info is used.
-
-3. Validate Code Touchpoints in This Repo
-
-- Router config: [react-router.config.ts](mdc:react-router.config.ts)
-- Root app shell: [app/root.tsx](mdc:app/root.tsx)
-- Routing helpers/registry (if used): [app/routes.ts](mdc:app/routes.ts)
-- Route files (file-based routing): [app/routes](mdc:app/routes)
-- Example layout file: [app/routes/dashboard/layout.tsx](mdc:app/routes/dashboard/layout.tsx)
-
-### Guidance for Agents
-
-- Always verify API names and patterns against the latest docs before editing.
-- Prefer v7-endorsed patterns; call out any migrations or breaking changes in notes.
-- When answering, provide concise citations/links for any external information used.
-- Only proceed with edits after confirming the approach via Context7 or current web sources.
-
-### Quick Workflow Snippet
-
-- "Topic touches React Router v7 Framework Mode → fetch latest docs via Context7; if needed, do web research and cite. Then implement or adjust in `react-router.config.ts` and relevant `app/routes/**` files according to findings."
+### Key Configuration Files
+
+- Route config: `react-router.config.ts`
+- Vite config: `vite.config.ts`
+- TypeScript config: `tsconfig.json`
+- ESLint config: `eslint.config.js`
+- MUI theme: `app/theme.ts`
+- Root component: `app/root.tsx`
+
+## Definition of Done
+
+Before creating a PR, ensure:
+
+- [ ] `npm run typecheck` passes (no TypeScript errors)
+- [ ] `npm run lint` passes (no ESLint errors)
+- [ ] `npm run prettier` passes (code is formatted)
+- [ ] `npm run build` succeeds (production build works)
+- [ ] All imports use `@/` alias (no relative imports)
+- [ ] File names follow kebab-case convention
+- [ ] MUI v7 patterns are followed (no deprecated APIs, tree-shaking imports)
+- [ ] No `theme.palette.mode` checks (use `theme.applyStyles()` instead)
+
+## See Also
+
+- **App-level patterns**: [app/AGENTS.md](app/AGENTS.md) - Detailed component patterns, routing, theming, and conventions
+- **Cursor Rules**: `.cursor/rules/` - Project-specific rules for imports, MUI v7, and React Router v7

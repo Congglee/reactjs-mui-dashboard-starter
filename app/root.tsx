@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import type { Route } from './+types/root'
-import '@/app.css'
+import '@/styles/app.css'
 import theme from '@/theme'
 import CssBaseline from '@mui/material/CssBaseline'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'

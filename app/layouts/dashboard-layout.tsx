@@ -13,16 +13,8 @@ export default function DashboardLayout() {
   const sidebarOffset = isSm ? 0 : sidebarOpen ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED_WIDTH
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        height: '100dvh',
-        bgcolor: 'var(--color-bg)',
-        overflow: 'hidden'
-      }}
-    >
+    <>
       <Sidebar width={SIDEBAR_WIDTH} />
-
       <Box
         sx={{
           flexGrow: 1,
@@ -49,6 +41,6 @@ export default function DashboardLayout() {
           <Outlet />
         </Box>
       </Box>
-    </Box>
+    </>
   )
 }

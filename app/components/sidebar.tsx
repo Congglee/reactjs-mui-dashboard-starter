@@ -5,6 +5,7 @@ import InfoIcon from '@/components/icons/info-icon'
 import SettingsIcon from '@/components/icons/settings-icon'
 import TasksIcon from '@/components/icons/tasks-icon'
 import UsersIcon from '@/components/icons/users-icon'
+import Logo from '@/components/logo'
 import NavItem from '@/components/nav-item'
 import ProfileMenu from '@/components/profile-menu'
 import { useAppContext } from '@/providers/app-provider'
@@ -102,73 +103,7 @@ export default function Sidebar({ width = SIDEBAR_WIDTH }: SidebarProps) {
       }}
       ModalProps={{ keepMounted: true }}
     >
-      <Box
-        aria-label='Application brand'
-        sx={{
-          mx: -horizontalPadding,
-          px: horizontalPadding,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: isCollapsed ? 'center' : 'flex-start',
-          gap: isCollapsed ? 0 : 1.25,
-          height: 64,
-          flexShrink: 0,
-          borderBottom: '1px solid var(--color-border)'
-        }}
-      >
-        <Box
-          sx={[
-            {
-              width: 34,
-              height: 34,
-              borderRadius: 1.5,
-              p: '2px',
-              background: 'linear-gradient(135deg, #027AF2 0%, #0059B3 100%)',
-              boxShadow: '0 6px 18px rgba(0,0,0,0.10)'
-            },
-            (theme) =>
-              theme.applyStyles('dark', {
-                boxShadow: '0 6px 18px rgba(2,122,242,0.25)'
-              })
-          ]}
-        >
-          <Box
-            component='img'
-            src='/favicon.ico'
-            alt='App logo'
-            sx={[
-              {
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                borderRadius: 1.25,
-                objectFit: 'cover',
-                backgroundColor: '#ffffff'
-              },
-              (theme) =>
-                theme.applyStyles('dark', {
-                  backgroundColor: '#0b0e14'
-                })
-            ]}
-          />
-        </Box>
-
-        {!isCollapsed && (
-          <Box sx={{ minWidth: 0 }}>
-            <Typography
-              variant='subtitle1'
-              title='Sitemark'
-              color='text.primary'
-              sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-            >
-              Sitemark
-            </Typography>
-            <Typography variant='caption' color='text.secondary' sx={{ display: { xs: 'none', sm: 'block' } }}>
-              Dashboard
-            </Typography>
-          </Box>
-        )}
-      </Box>
+      <Logo variant='sidebar' collapsed={isCollapsed} horizontalPadding={horizontalPadding} />
 
       <Box
         sx={{

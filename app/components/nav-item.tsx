@@ -4,17 +4,23 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import type { ElementType } from 'react'
 import type { SvgIconProps } from '@mui/material/SvgIcon'
+import { NavLink, useLocation } from 'react-router'
 
 export interface NavItemProps {
   label: string
   icon: ElementType<SvgIconProps>
-  active?: boolean
+  href: string
   collapsed?: boolean
 }
 
-export default function NavItem({ label, icon: Icon, active = false, collapsed = false }: NavItemProps) {
+export default function NavItem({ label, icon: Icon, href, collapsed = false }: NavItemProps) {
+  const location = useLocation()
+  const active = location.pathname === href || location.pathname.startsWith(`${href}/`)
+
   const button = (
     <ButtonBase
+      component={NavLink}
+      to={href}
       focusRipple
       aria-label={collapsed ? label : undefined}
       sx={{

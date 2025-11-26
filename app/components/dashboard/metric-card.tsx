@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import TrendPill from '@/components/dashboard/trend-pill'
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart'
 import Box from '@mui/material/Box'
-import type { Trend } from '@/constants/mock-data'
+import type { Trend } from '@/types/mock-data.types'
 
 interface MetricCardProps {
   title: string

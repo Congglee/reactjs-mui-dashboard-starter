@@ -1,4 +1,4 @@
-import type { TreeNode } from '@/constants/mock-data'
+import type { TreeNode } from '@/types/mock-data.types'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Box from '@mui/material/Box'

@@ -120,16 +120,16 @@ export default function Sidebar({ width = SIDEBAR_WIDTH }: SidebarProps) {
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-          <NavItem icon={HomeIcon} label='Home' active collapsed={isCollapsed} />
-          <NavItem icon={AnalyticsIcon} label='Analytics' collapsed={isCollapsed} />
-          <NavItem icon={UsersIcon} label='Clients' collapsed={isCollapsed} />
-          <NavItem icon={TasksIcon} label='Tasks' collapsed={isCollapsed} />
+          <NavItem icon={HomeIcon} label='Home' href='/dashboard' collapsed={isCollapsed} />
+          <NavItem icon={AnalyticsIcon} label='Analytics' href='/analytics' collapsed={isCollapsed} />
+          <NavItem icon={UsersIcon} label='Clients' href='/clients' collapsed={isCollapsed} />
+          <NavItem icon={TasksIcon} label='Tasks' href='/tasks' collapsed={isCollapsed} />
         </Box>
 
         <Box sx={{ mt: 'auto', display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-          <NavItem icon={SettingsIcon} label='Settings' collapsed={isCollapsed} />
-          <NavItem icon={InfoIcon} label='About' collapsed={isCollapsed} />
-          <NavItem icon={HelpIcon} label='Feedback' collapsed={isCollapsed} />
+          <NavItem icon={SettingsIcon} label='Settings' href='/settings' collapsed={isCollapsed} />
+          <NavItem icon={InfoIcon} label='About' href='/about' collapsed={isCollapsed} />
+          <NavItem icon={HelpIcon} label='Feedback' href='/feedback' collapsed={isCollapsed} />
 
           {isCollapsed ? (
             <Tooltip

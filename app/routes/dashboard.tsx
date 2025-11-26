@@ -1,4 +1,4 @@
-import type { Route } from './+types/index'
+import type { Route } from './+types/dashboard'
 import DashboardContent from '@/components/dashboard/dashboard-content'
 
 export function meta({}: Route.MetaArgs) {

@@ -1,7 +1,7 @@
 import Chip from '@mui/material/Chip'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import TrendingDownIcon from '@mui/icons-material/TrendingDown'
-import type { Trend } from '@/constants/mock-data'
+import type { Trend } from '@/types/mock-data.types'
 
 interface TrendPillProps {
   trend: Trend

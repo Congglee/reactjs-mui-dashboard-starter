@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import { alpha } from '@mui/material/styles'
 import { useState } from 'react'
+import { Link } from 'react-router'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -97,11 +98,14 @@ export default function Header() {
               alignItems: 'center'
             }}
           >
-            <Button color='primary' variant='text' size='small'>
+            {/* <Button color='primary' variant='text' size='small'>
               Sign in
             </Button>
             <Button color='primary' variant='contained' size='small'>
               Sign up
+            </Button> */}
+            <Button component={Link} to='/dashboard' color='primary' variant='contained' size='small'>
+              Go to Dashboard
             </Button>
             <ModeMenu />
           </Box>

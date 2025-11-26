@@ -1,3 +1,15 @@
+import type { TreeNode, CountryData, Task } from '@/types/mock-data.types'
+
+export type {
+  Trend,
+  TreeNode,
+  CountryData,
+  TaskCategory,
+  TaskStatus,
+  TaskPriority,
+  Task
+} from '@/types/mock-data.types'
+
 export const mockUsersSpark = [12, 13, 12, 13, 13, 14, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18]
 
 export const mockConvSpark = [8, 7, 9, 7, 6, 7, 6, 6, 7, 5, 6, 5, 5, 5, 4, 4, 3]
@@ -16,19 +28,6 @@ export const mockSessionsC = mockSessionsA.map((v) => Math.max(0, Math.round(v *
 export const mockPageViews = [10000, 10500, 8200, 11000, 12500, 8400, 7200]
 
 export const mockDownloads = [2500, 3200, 2800, 4100, 5200, 3000, 2600]
-
-export interface Trend {
-  value: number
-  direction: 'up' | 'down'
-}
-
-export interface TreeNode {
-  id: string
-  label: string
-  type: 'parent' | 'leaf'
-  dotColor?: 'green' | 'blue'
-  children?: TreeNode[]
-}
 
 export const mockTreeData: TreeNode[] = [
   {
@@ -76,15 +75,6 @@ export const mockTreeData: TreeNode[] = [
   { id: 'help', label: 'Help', type: 'leaf', dotColor: 'blue' }
 ]
 
-export interface CountryData {
-  id: string
-  country: string
-  percentage: number
-  color: string
-  flag: string
-  countryCode?: string // ISO 3166-1 alpha-2 country code
-}
-
 export const mockCountryData: CountryData[] = [
   { id: 'india', country: 'India', percentage: 50, color: '#027af2', flag: '🇮🇳', countryCode: 'IN' },
   { id: 'usa', country: 'USA', percentage: 35, color: '#4da6ff', flag: '🇺🇸', countryCode: 'US' },
@@ -93,3 +83,240 @@ export const mockCountryData: CountryData[] = [
 ]
 
 export const mockTotalUsers = 98500
+
+export const mockTasks: Task[] = [
+  {
+    id: 'TASK-9366',
+    title: 'Auctus bardus minus pariatur vobis solitudo tamquam solitudo.',
+    category: 'Documentation',
+    status: 'Canceled',
+    priority: 'Low',
+    description: 'Documentation task that was canceled due to scope changes',
+    assignee: 'John Doe',
+    createdAt: '2024-01-15T10:30:00Z',
+    updatedAt: '2024-01-20T14:20:00Z'
+  },
+  {
+    id: 'TASK-5736',
+    title: 'Admoneo vehemens suscipit toties desidero tollo allatus blanditiis caute.',
+    category: 'Bug',
+    status: 'Canceled',
+    priority: 'Medium',
+    description: 'Bug report that was determined to be a non-issue after investigation',
+    assignee: 'Jane Smith',
+    createdAt: '2024-01-10T09:15:00Z',
+    updatedAt: '2024-01-18T16:45:00Z'
+  },
+  {
+    id: 'TASK-7918',
+    title: 'Ulterius vir amita verbum condico trepide velociter adicio autus claustru.',
+    category: 'Documentation',
+    status: 'Done',
+    priority: 'High',
+    description: 'High priority documentation update completed successfully',
+    assignee: 'Alice Johnson',
+    createdAt: '2024-01-05T08:00:00Z',
+    updatedAt: '2024-01-12T17:30:00Z',
+    dueDate: '2024-01-15T00:00:00Z'
+  },
+  {
+    id: 'TASK-6498',
+    title: 'Armarium atrocitas ustilo clam numquam defetiscor cunctatio vaco sua.',
+    category: 'Bug',
+    status: 'In Progress',
+    priority: 'Low',
+    description: 'Low priority bug fix currently being worked on',
+    assignee: 'Bob Williams',
+    createdAt: '2024-01-20T11:20:00Z',
+    updatedAt: '2024-01-22T09:10:00Z',
+    dueDate: '2024-02-01T00:00:00Z'
+  },
+  {
+    id: 'TASK-9957',
+    title: 'Aspicio tempora aegrus sufficio delicate abstergo.',
+    category: 'Documentation',
+    status: 'Canceled',
+    priority: 'Low',
+    description: 'Documentation task canceled due to duplicate work',
+    assignee: 'Charlie Brown',
+    createdAt: '2024-01-18T13:45:00Z',
+    updatedAt: '2024-01-19T10:30:00Z'
+  },
+  {
+    id: 'TASK-4715',
+    title: 'Solutio cohaero baiulus brevis animadverto adfero adeo callide calco qu.',
+    category: 'Bug',
+    status: 'Canceled',
+    priority: 'Medium',
+    description: 'Bug fix canceled as it was resolved in a different ticket',
+    assignee: 'Diana Prince',
+    createdAt: '2024-01-12T15:00:00Z',
+    updatedAt: '2024-01-16T11:20:00Z'
+  },
+  {
+    id: 'TASK-7138',
+    title: 'Usitas tardus aliquid comprehendo cupiditas a patria statim copiose crux.',
+    category: 'Feature',
+    status: 'Done',
+    priority: 'Low',
+    description: 'Feature implementation completed and deployed',
+    assignee: 'Edward Norton',
+    createdAt: '2024-01-08T07:30:00Z',
+    updatedAt: '2024-01-14T15:45:00Z',
+    dueDate: '2024-01-20T00:00:00Z'
+  },
+  {
+    id: 'TASK-3344',
+    title: 'Ventosus cetera turba auxilium comptus vindico dicta culpo.',
+    category: 'Feature',
+    status: 'Todo',
+    priority: 'Medium',
+    description: 'New feature request pending assignment',
+    assignee: 'Fiona Apple',
+    createdAt: '2024-01-22T10:00:00Z',
+    updatedAt: '2024-01-22T10:00:00Z',
+    dueDate: '2024-02-10T00:00:00Z'
+  },
+  {
+    id: 'TASK-8090',
+    title: 'Recusandae benigne acervus quis sapiente sapiente.',
+    category: 'Feature',
+    status: 'Backlog',
+    priority: 'Medium',
+    description: 'Feature request added to backlog for future consideration',
+    assignee: undefined,
+    createdAt: '2024-01-15T12:00:00Z',
+    updatedAt: '2024-01-15T12:00:00Z'
+  },
+  {
+    id: 'TASK-5402',
+    title: 'Quod aperte considero rem verto aliqua aequitas cupio bibo eius labore.',
+    category: 'Bug',
+    status: 'In Progress',
+    priority: 'Low',
+    description: 'Bug fix in progress, expected completion soon',
+    assignee: 'George Lucas',
+    createdAt: '2024-01-19T14:30:00Z',
+    updatedAt: '2024-01-23T08:15:00Z',
+    dueDate: '2024-01-30T00:00:00Z'
+  },
+  // Additional tasks to cover more scenarios
+  {
+    id: 'TASK-1234',
+    title: 'Implement user authentication system with OAuth2 support.',
+    category: 'Feature',
+    status: 'In Progress',
+    priority: 'High',
+    description: 'Critical feature for user authentication and authorization',
+    assignee: 'Alice Johnson',
+    createdAt: '2024-01-10T08:00:00Z',
+    updatedAt: '2024-01-23T16:30:00Z',
+    dueDate: '2024-02-05T00:00:00Z'
+  },
+  {
+    id: 'TASK-5678',
+    title: 'Fix memory leak in dashboard component causing performance issues.',
+    category: 'Bug',
+    status: 'Todo',
+    priority: 'High',
+    description: 'Critical bug affecting application performance',
+    assignee: 'Bob Williams',
+    createdAt: '2024-01-21T09:00:00Z',
+    updatedAt: '2024-01-21T09:00:00Z',
+    dueDate: '2024-01-28T00:00:00Z'
+  },
+  {
+    id: 'TASK-9012',
+    title: 'Update API documentation for v2.0 release.',
+    category: 'Documentation',
+    status: 'In Progress',
+    priority: 'Medium',
+    description: 'Documentation update for upcoming API version',
+    assignee: 'Charlie Brown',
+    createdAt: '2024-01-16T11:00:00Z',
+    updatedAt: '2024-01-23T13:20:00Z',
+    dueDate: '2024-02-01T00:00:00Z'
+  },
+  {
+    id: 'TASK-3456',
+    title: 'Add dark mode toggle to user settings page.',
+    category: 'Feature',
+    status: 'Done',
+    priority: 'Medium',
+    description: 'User-requested feature for theme customization',
+    assignee: 'Diana Prince',
+    createdAt: '2024-01-05T10:00:00Z',
+    updatedAt: '2024-01-15T14:00:00Z',
+    dueDate: '2024-01-18T00:00:00Z'
+  },
+  {
+    id: 'TASK-7890',
+    title: 'Resolve CORS error when accessing external API endpoints.',
+    category: 'Bug',
+    status: 'Done',
+    priority: 'High',
+    description: 'Critical bug preventing API integration',
+    assignee: 'Edward Norton',
+    createdAt: '2024-01-08T12:00:00Z',
+    updatedAt: '2024-01-10T17:00:00Z',
+    dueDate: '2024-01-12T00:00:00Z'
+  },
+  {
+    id: 'TASK-2345',
+    title: 'Create user guide for new dashboard features.',
+    category: 'Documentation',
+    status: 'Todo',
+    priority: 'Low',
+    description: 'User documentation for recently added features',
+    assignee: 'Fiona Apple',
+    createdAt: '2024-01-20T15:00:00Z',
+    updatedAt: '2024-01-20T15:00:00Z',
+    dueDate: '2024-02-15T00:00:00Z'
+  },
+  {
+    id: 'TASK-6789',
+    title: 'Optimize database queries for faster page load times.',
+    category: 'Feature',
+    status: 'Backlog',
+    priority: 'Medium',
+    description: 'Performance improvement feature',
+    assignee: undefined,
+    createdAt: '2024-01-14T10:00:00Z',
+    updatedAt: '2024-01-14T10:00:00Z'
+  },
+  {
+    id: 'TASK-0123',
+    title: 'Fix typo in error message displayed to users.',
+    category: 'Bug',
+    status: 'Done',
+    priority: 'Low',
+    description: 'Minor text correction',
+    assignee: 'George Lucas',
+    createdAt: '2024-01-18T08:30:00Z',
+    updatedAt: '2024-01-18T09:00:00Z',
+    dueDate: '2024-01-19T00:00:00Z'
+  },
+  {
+    id: 'TASK-4567',
+    title: 'Add unit tests for authentication module.',
+    category: 'Feature',
+    status: 'In Progress',
+    priority: 'Medium',
+    description: 'Improve test coverage for critical module',
+    assignee: 'Alice Johnson',
+    createdAt: '2024-01-17T11:00:00Z',
+    updatedAt: '2024-01-23T10:00:00Z',
+    dueDate: '2024-02-01T00:00:00Z'
+  },
+  {
+    id: 'TASK-8901',
+    title: 'Update README with new installation instructions.',
+    category: 'Documentation',
+    status: 'Backlog',
+    priority: 'Low',
+    description: 'Documentation maintenance task',
+    assignee: undefined,
+    createdAt: '2024-01-19T13:00:00Z',
+    updatedAt: '2024-01-19T13:00:00Z'
+  }
+]

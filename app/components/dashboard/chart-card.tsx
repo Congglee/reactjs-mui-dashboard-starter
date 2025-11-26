@@ -1,5 +1,5 @@
 import TrendPill from '@/components/dashboard/trend-pill'
-import type { Trend } from '@/constants/mock-data'
+import type { Trend } from '@/types/mock-data.types'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'

@@ -2,7 +2,13 @@ import { type RouteConfig, index, layout, prefix } from '@react-router/dev/route
 
 export default [
   layout('layouts/main-layout.tsx', [
+    // Public routes
     index('routes/home.tsx'),
-    ...prefix('dashboard', [layout('layouts/dashboard-layout.tsx', [index('routes/dashboard/index.tsx')])])
+
+    // Dashboard routes
+    layout('layouts/dashboard-layout.tsx', [
+      ...prefix('dashboard', [index('routes/dashboard.tsx')]),
+      ...prefix('tasks', [index('routes/tasks.tsx')])
+    ])
   ])
 ] satisfies RouteConfig

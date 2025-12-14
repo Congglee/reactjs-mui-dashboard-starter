@@ -26,6 +26,13 @@ export type TaskStatus = 'Canceled' | 'Done' | 'In Progress' | 'Todo' | 'Backlog
 
 export type TaskPriority = 'Low' | 'Medium' | 'High'
 
+export interface Assignee {
+  id: string
+  name: string
+  email: string
+  avatar?: string
+}
+
 export interface Task {
   id: string
   title: string

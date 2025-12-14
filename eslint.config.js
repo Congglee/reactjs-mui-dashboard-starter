@@ -21,7 +21,8 @@ export default defineConfig([
     },
     rules: {
       'react-refresh/only-export-components': 'off',
-      'no-empty-pattern': 'off'
+      'no-empty-pattern': 'off',
+      'react-hooks/set-state-in-effect': 'off'
     }
   }
 ])

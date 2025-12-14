@@ -1,4 +1,4 @@
-import type { TreeNode, CountryData, Task } from '@/types/mock-data.type'
+import type { TreeNode, CountryData, Task, Assignee } from '@/types/mock-data.type'
 
 export const mockUsersSpark = [12, 13, 12, 13, 13, 14, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18]
 
@@ -70,6 +70,18 @@ export const mockCountryData: CountryData[] = [
   { id: 'usa', country: 'USA', percentage: 35, color: '#4da6ff', flag: '🇺🇸', countryCode: 'US' },
   { id: 'brazil', country: 'Brazil', percentage: 10, color: '#5eaa22', flag: '🇧🇷', countryCode: 'BR' },
   { id: 'other', country: 'Other', percentage: 5, color: '#94a0b8', flag: '🌍' }
+]
+
+export const mockAssignees: Assignee[] = [
+  { id: '1', name: 'John Doe', email: 'john.doe@example.com' },
+  { id: '2', name: 'Jane Smith', email: 'jane.smith@example.com' },
+  { id: '3', name: 'Alice Johnson', email: 'alice.johnson@example.com' },
+  { id: '4', name: 'Bob Williams', email: 'bob.williams@example.com' },
+  { id: '5', name: 'Charlie Brown', email: 'charlie.brown@example.com' },
+  { id: '6', name: 'Diana Prince', email: 'diana.prince@example.com' },
+  { id: '7', name: 'Edward Norton', email: 'edward.norton@example.com' },
+  { id: '8', name: 'Fiona Apple', email: 'fiona.apple@example.com' },
+  { id: '9', name: 'George Lucas', email: 'george.lucas@example.com' }
 ]
 
 export const mockTotalUsers = 98500

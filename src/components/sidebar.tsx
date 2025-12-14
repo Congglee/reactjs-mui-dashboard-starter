@@ -31,8 +31,6 @@ export default function Sidebar({ width = SIDEBAR_WIDTH }: SidebarProps) {
 
   const { sidebarOpen, setSidebarOpen } = useAppContext()
 
-  console.log(setSidebarOpen)
-
   const isPersistent = !isSm
   const isCollapsed = isPersistent && !sidebarOpen
   const drawerWidth = isCollapsed ? SIDEBAR_COLLAPSED_WIDTH : width

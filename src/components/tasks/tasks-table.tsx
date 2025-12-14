@@ -1,3 +1,4 @@
+import EditTaskDialog from '@/components/tasks/edit-task-dialog'
 import TasksTableSkeleton from '@/components/tasks/tasks-table-skeleton'
 import { mockTasks } from '@/constants/mock-data'
 import type { Task, TaskPriority } from '@/types/mock-data.type'
@@ -16,7 +17,8 @@ import { useEffect, useMemo, useState } from 'react'
 
 export default function TasksTable() {
   const [isLoading, setIsLoading] = useState(true)
-
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [columnVisibilityModel, setColumnVisibilityModel] = useState<Record<string, boolean>>({})
   const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
   const [sortModel, setSortModel] = useState<GridSortModel>([])
@@ -29,6 +31,11 @@ export default function TasksTable() {
     return () => clearTimeout(timer)
   }, [])
 
+  const handleEditTaskDialogClose = () => {
+    setEditDialogOpen(false)
+    setSelectedTask(null)
+  }
+
   const handleColumnVisibilityChange = (newModel: Record<string, boolean>) => {
     setColumnVisibilityModel(newModel)
   }
@@ -39,6 +46,11 @@ export default function TasksTable() {
 
   const handleSortModelChange = (newModel: GridSortModel) => {
     setSortModel(newModel)
+  }
+
+  const handleRowClick = (task: Task) => {
+    setSelectedTask(task)
+    setEditDialogOpen(true)
   }
 
   const rows = mockTasks
@@ -223,6 +235,7 @@ export default function TasksTable() {
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick
+        onRowClick={(params) => handleRowClick(params.row)}
         autoHeight
         density='standard'
         rowHeight={52}
@@ -301,6 +314,11 @@ export default function TasksTable() {
             outline: 'none'
           }
         }}
+      />
+      <EditTaskDialog
+        editTaskDialogOpen={editDialogOpen}
+        onEditTaskDialogClose={handleEditTaskDialogClose}
+        task={selectedTask}
       />
     </Box>
   )

@@ -1,6 +1,6 @@
 ---
-alwaysApply: true
-description: Strict Material‑UI v7 UI policy; MUI‑only, tree‑shaking imports, icons, theming, MCP.
+globs: *.tsx,src/**/*.tsx
+description: Strict Material‑UI v7 UI policy; MUI‑only, tree‑shaking imports, icons, theming.
 ---
 
 # Material‑UI v7 UI Policy (REQUIRED)
@@ -10,7 +10,6 @@ These rules apply to all React/TypeScript files in this project. The Cursor Agen
 ## Version and documentation
 
 - This project uses Material‑UI v7. Reference: [Upgrade to v7](https://mui.com/material-ui/migration/upgrade-to-v7/).
-- Use the MUI MCP Server whenever help is needed: [Getting started with MCP](https://mui.com/material-ui/getting-started/mcp/).
 
 ## UI library usage
 
@@ -131,11 +130,7 @@ const theme = createTheme({
 
 - If the project uses React 18 or below, align `react-is` with the React version to avoid runtime issues (see the v7 guide).
 
-## Mandatory MCP usage for MUI issues
-
-- For any MUI‑related question, migration, API uncertainty, or error, proactively use the MUI MCP Server to search, debug, or resolve before asking the user.
-
-## Do / Don’t checklist
+## Do / Don't checklist
 
 - Do: Tree‑shake imports from `@mui/material/<Component>` and `@mui/icons-material/<Icon>`.
 - Do: Use `@mui/material/styles` for theming and type augmentation.
@@ -215,4 +210,3 @@ import Grid from '@mui/material/Grid'
 References:
 
 - MUI v7 Upgrade Guide: https://mui.com/material-ui/migration/upgrade-to-v7/
-- MUI MCP Server: https://mui.com/material-ui/getting-started/mcp/

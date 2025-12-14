@@ -1,163 +1,63 @@
-# AGENTS.md
+## Project snapshot
 
-This is the canonical entrypoint for AI coding agents (e.g., Amp, Cursor, Codex, Droid, etc...) working in this repository. It provides a concise project overview and points to the nearest per-folder AGENTS.md files that contain the actionable, context-specific rules.
+- **Repo type**: single project (one Vite app)
+- **Stack**: React 19, TypeScript 5.9 (strict), Vite 7, Material UI v7 (+ MUI X), React Router v7
+- **State**: Context API (`src/providers/`)
+- **Planned**: Axios + TanStack Query (future `src/apis/`, `src/queries/`)
 
-## Project Snapshot
+## Root setup commands
 
-**Repository Type**: Simple single project (not a monorepo)  
-**Primary Tech Stack**: React 19, React Router v7 Framework Mode, Material-UI v7, TypeScript (strict), Vite  
-**Status**: Boilerplate starter-kit with React Router v7, MUI v7, TanStack Query v5 (planned), Context API  
-**Testing**: Not yet configured (planned for future integration)
+- **Install**: `npm ci` (preferred) or `npm install`
+- **Dev**: `npm run dev`
+- **Build** (includes typecheck via `tsc -b`): `npm run build`
+- **Typecheck only**: `npx tsc -b`
+- **Lint**: `npm run lint` (or `npm run lint:fix`)
+- **Format check**: `npm run prettier` (or `npm run prettier:fix`)
+- **Preview**: `npm run preview`
 
-For detailed patterns and conventions, see [app/AGENTS.md](app/AGENTS.md)
+## Universal conventions (must-follow)
 
-## Root Setup Commands
+- **Rules are mandatory**:
+  - MUI v7 UI policy: `.cursor/rules/material-ui-v7.mdc`
+  - Import + naming policy: `.cursor/rules/imports-and-naming.mdc`
+- **Absolute imports only**: always use `@/…` for internal modules (no `./` / `../`).
+- **kebab-case filenames**: components/pages should be `some-component.tsx`.
+- **Material UI only**: do not introduce other UI libraries.
+- **Tree-shaking imports**:
+  - ✅ `import Button from '@mui/material/Button'`
+  - ❌ `import { Button } from '@mui/material'`
+- **Dark mode styling**:
+  - ✅ use `theme.applyStyles('dark', …)` or CSS variables (`var(--color-…)`)
+  - ❌ do not branch on `theme.palette.mode`
 
-```bash
-# Install dependencies
-npm install
+## Security & secrets
 
-# Development server (with HMR)
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Start CSR preview (client-side only)
-npm run start:csr
-
-# Type checking (generates route types + TypeScript check)
-npm run typecheck
-
-# Linting
-npm run lint
-npm run lint:fix
-
-# Code formatting
-npm run prettier
-npm run prettier:fix
-```
-
-## Universal Conventions
-
-### Code Style
-
-- **TypeScript**: Strict mode enabled (`strict: true` in `tsconfig.json`)
-- **Linting**: ESLint with TypeScript ESLint, React Hooks, and React Refresh plugins
-- **Formatting**: Prettier (check before committing)
-- **Imports**: **MUST** use absolute `@/` alias for all app code (no relative imports)
-- **File Naming**: Components and pages use kebab-case (e.g., `nav-item.tsx`, `dashboard-layout.tsx`)
-
-### UI Library
-
-- **Material-UI v7 ONLY** - No other UI libraries allowed
-- Tree-shake imports: `import Button from '@mui/material/Button'`
-- Icons from `@mui/icons-material` only
-- Use `sx` prop for component styling; `styled` only for global reusable components
-- Dark mode via CSS variables (never check `theme.palette.mode`)
-
-### React Router v7 Framework Mode
-
-- File-based routing in `app/routes/`
-- Route config in `app/routes.ts`
-- Always verify API against latest docs via Context7 MCP or web research
-
-### Commit & PR Guidelines
-
-- Follow conventional commit format when possible
-- Run `npm run typecheck && npm run lint && npm run prettier` before PR
-- Ensure all imports use `@/` alias
-- Verify MUI v7 patterns (no deprecated APIs)
-
-## Security & Secrets
-
-- **Never commit** `.env` files (already in `.gitignore`)
-- Store environment variables in `.env` (not version controlled)
-- No PII or sensitive tokens in code
-- Build outputs (`build/`, `.react-router/`) are gitignored
+- **Never commit secrets** (API keys, tokens, credentials) to git.
+- Put secrets in `.env*` (and keep them out of git). If you add new env vars, document required keys in `README.md` (briefly).
 
 ## JIT Index (what to open, not what to paste)
 
-### Directory Structure
+### Where to work
 
-- **Application Code**: `app/` → [see app/AGENTS.md](app/AGENTS.md) for detailed patterns
-  - Components: `app/components/**` - Reusable UI components
-  - Routes: `app/routes/**` - React Router route files
-  - Layouts: `app/layouts/**` - Layout wrappers for routes
-  - Providers: `app/providers/**` - React Context providers
-  - Constants: `app/constants/**` - Constants and mock data
-  - Types: `app/types/**` - TypeScript type definitions
-  - Assets: `app/assets/**` - Static assets (images, fonts)
-  - Styles: `app/styles/**` - Global CSS styles
-  - Hooks: `app/hooks/**` - Custom React hooks (planned)
-  - Utils: `app/utils/**` - Utility functions (planned)
-  - Lib: `app/lib/**` - External library wrappers (planned)
-  - Queries: `app/queries/**` - TanStack Query hooks (planned)
-  - Tests: `app/tests/**` - Test files (planned)
-  - Theme: `app/theme.ts` - MUI theme configuration
-  - Root: `app/root.tsx` - Root component entry point
-  - Routes Config: `app/routes.ts` - Route configuration
+- App entry + wiring: `src/main.tsx`, `src/App.tsx` → see `src/AGENTS.md`
+- Routes/pages: `src/routes/**` → see `src/routes/AGENTS.md`
+- UI components: `src/components/**` → see `src/components/AGENTS.md`
+- Global state: `src/providers/**` → see `src/providers/AGENTS.md`
+- Theme + tokens: `src/theme.ts` (CSS vars + colorSchemes)
+- Global CSS: `src/styles/index.css` → see `src/styles/AGENTS.md`
+- Route paths: `src/constants/path.ts`
 
-### Quick Find Commands
+### Quick find commands
 
-```bash
-# Find a React component
-rg -n "export (default )?function .*" app/components
+- Find a component: `rg -n "export default function" src/components`
+- Find a route: `rg -n "export default function" src/routes`
+- Find usage of a component: `rg -n "<ComponentName" src`
+- Find MUI mode anti-patterns (must not exist): `rg -n "theme\\.palette\\.mode" src`
+- Find all absolute import violations: `rg -n "from '\\.{1,2}/" src`
 
-# Find a route file
-rg -n "export default function" app/routes
+## Definition of Done (before PR)
 
-# Find MUI component usage
-rg -n "from '@mui/material/" app
-
-# Find icon imports
-rg -n "from '@mui/icons-material/" app
-
-# Find theme.palette.mode usage (anti-pattern)
-rg -n "theme\.palette\.mode" app
-
-# Find relative imports (anti-pattern)
-rg -n "from '\\.\\.?/" app
-
-# Find custom hooks (when hooks/ directory is populated)
-rg -n "export (const|function) use" app/hooks
-
-# Find utility functions (when utils/ directory is populated)
-rg -n "export (function|const)" app/utils
-
-# Find test files (when tests/ directory is populated)
-find app/tests -name "*.test.ts*" -o -name "*.spec.ts*"
-
-# List all directories in app/
-ls -d app/*/
-```
-
-### Key Configuration Files
-
-- Route config: `react-router.config.ts`
-- Vite config: `vite.config.ts`
-- TypeScript config: `tsconfig.json`
-- ESLint config: `eslint.config.js`
-- MUI theme: `app/theme.ts`
-- Root component: `app/root.tsx`
-
-## Definition of Done
-
-Before creating a PR, ensure:
-
-- [ ] `npm run typecheck` passes (no TypeScript errors)
-- [ ] `npm run lint` passes (no ESLint errors)
-- [ ] `npm run prettier` passes (code is formatted)
-- [ ] `npm run build` succeeds (production build works)
-- [ ] All imports use `@/` alias (no relative imports)
-- [ ] File names follow kebab-case convention
-- [ ] MUI v7 patterns are followed (no deprecated APIs, tree-shaking imports)
-- [ ] No `theme.palette.mode` checks (use `theme.applyStyles()` instead)
-
-## See Also
-
-- **App-level patterns**: [app/AGENTS.md](app/AGENTS.md) - Detailed component patterns, routing, theming, and conventions
-- **Cursor Rules**: `.cursor/rules/` - Project-specific rules for imports, MUI v7, and React Router v7
+- `npm run lint`
+- `npm run prettier`
+- `npm run build`
+- No new warnings about MUI import/style rules (tree-shaking, `theme.applyStyles`, `@/` imports)

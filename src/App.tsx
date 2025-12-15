@@ -1,11 +1,17 @@
 import AuthLayout from '@/components/layouts/auth-layout'
 import DashboardLayout from '@/components/layouts/dashboard-layout'
 import MainLayout from '@/components/layouts/main-layout'
+import SettingsLayout from '@/components/layouts/settings-layout'
 import path from '@/constants/path'
 import Dashboard from '@/routes/dashboard'
 import Landing from '@/routes/landing'
 import Login from '@/routes/login'
 import Register from '@/routes/register'
+import Account from '@/routes/settings/account'
+import Appearance from '@/routes/settings/appearance'
+import Display from '@/routes/settings/display'
+import Notifications from '@/routes/settings/notifications'
+import Profile from '@/routes/settings/profile'
 import Tasks from '@/routes/tasks'
 import { Route, Routes } from 'react-router'
 
@@ -18,6 +24,14 @@ function App() {
         <Route path='' element={<DashboardLayout />}>
           <Route path={path.dashboard} element={<Dashboard />} />
           <Route path={path.tasks} element={<Tasks />} />
+
+          <Route path='' element={<SettingsLayout />}>
+            <Route path={path.settings} element={<Profile />} />
+            <Route path={path.account} element={<Account />} />
+            <Route path={path.appearance} element={<Appearance />} />
+            <Route path={path.notifications} element={<Notifications />} />
+            <Route path={path.display} element={<Display />} />
+          </Route>
         </Route>
 
         <Route path='' element={<AuthLayout />}>

@@ -31,7 +31,7 @@ export default function Dashboard() {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', bgcolor: 'background.default' }}>
+    <Box>
       <PageHeader breadcrumbs={[{ label: 'Dashboard' }, { label: 'Home', current: true }]} showDatePicker={true} />
 
       <Typography variant='h2' sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.6, color: 'text.primary' }}>

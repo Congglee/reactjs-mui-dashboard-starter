@@ -139,11 +139,11 @@ export default function NewTaskDialog({ newTaskDialogOpen, onNewTaskDialogClose 
           variant='outlined'
           fullWidth
           onClick={onNewTaskDialogClose}
-          sx={{ color: 'text.primary', borderColor: 'divider' }}
+          sx={{ color: 'text.primary', borderColor: 'divider', textTransform: 'none' }}
         >
           Close
         </Button>
-        <Button variant='contained' fullWidth type='submit'>
+        <Button variant='contained' fullWidth type='submit' sx={{ textTransform: 'none' }}>
           Save changes
         </Button>
       </Stack>

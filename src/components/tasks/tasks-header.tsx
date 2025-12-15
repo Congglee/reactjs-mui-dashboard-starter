@@ -38,7 +38,7 @@ export default function TasksHeader() {
               startIcon={<AddIcon />}
               onClick={() => setNewTaskDialogOpen(true)}
               sx={{
-                textTransform: 'uppercase',
+                textTransform: 'none',
                 fontWeight: 600,
                 px: 2
               }}

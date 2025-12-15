@@ -178,11 +178,11 @@ export default function EditTaskDialog({ editTaskDialogOpen, onEditTaskDialogClo
           variant='outlined'
           fullWidth
           onClick={onEditTaskDialogClose}
-          sx={{ color: 'text.primary', borderColor: 'divider' }}
+          sx={{ color: 'text.primary', borderColor: 'divider', textTransform: 'none' }}
         >
           Close
         </Button>
-        <Button variant='contained' fullWidth type='submit'>
+        <Button variant='contained' fullWidth type='submit' sx={{ textTransform: 'none' }}>
           Save changes
         </Button>
       </Stack>

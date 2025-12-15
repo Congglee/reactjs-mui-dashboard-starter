@@ -1,14 +1,26 @@
 import PageHeader from '@/components/page-header'
 import SettingsSidebar from '@/components/settings/settings-sidebar'
+import path from '@/constants/path'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
-import { Outlet } from 'react-router'
+import { Outlet, useLocation } from 'react-router'
+
+const settingsLabels: Record<string, string> = {
+  [path.settings]: 'Profile',
+  [path.account]: 'Account',
+  [path.appearance]: 'Appearance',
+  [path.notifications]: 'Notifications',
+  [path.display]: 'Display'
+}
 
 export default function SettingsLayout() {
+  const { pathname } = useLocation()
+  const currentLabel = settingsLabels[pathname] ?? 'Profile'
+
   return (
     <Box>
-      <PageHeader breadcrumbs={[{ label: 'Settings' }, { label: 'Profile', current: true }]} />
+      <PageHeader breadcrumbs={[{ label: 'Settings' }, { label: currentLabel, current: true }]} />
 
       <Typography
         variant='h2'
@@ -35,4 +47,3 @@ export default function SettingsLayout() {
     </Box>
   )
 }
-

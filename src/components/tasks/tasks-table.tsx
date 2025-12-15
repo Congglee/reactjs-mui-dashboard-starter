@@ -1,3 +1,4 @@
+import DeleteTaskDialog from '@/components/tasks/delete-task-dialog'
 import EditTaskDialog from '@/components/tasks/edit-task-dialog'
 import TasksTableSkeleton from '@/components/tasks/tasks-table-skeleton'
 import { mockTasks } from '@/constants/mock-data'
@@ -18,7 +19,9 @@ import { useEffect, useMemo, useState } from 'react'
 export default function TasksTable() {
   const [isLoading, setIsLoading] = useState(true)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [deleteTaskDialogOpen, setDeleteTaskDialogOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null)
   const [columnVisibilityModel, setColumnVisibilityModel] = useState<Record<string, boolean>>({})
   const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
   const [sortModel, setSortModel] = useState<GridSortModel>([])
@@ -36,6 +39,16 @@ export default function TasksTable() {
     setSelectedTask(null)
   }
 
+  const handleDeleteTaskDialogClose = () => {
+    setDeleteTaskDialogOpen(false)
+    setTaskToDelete(null)
+  }
+
+  const handleDeleteTaskConfirm = () => {
+    console.log('Deleting task:', taskToDelete?.id)
+    handleDeleteTaskDialogClose()
+  }
+
   const handleColumnVisibilityChange = (newModel: Record<string, boolean>) => {
     setColumnVisibilityModel(newModel)
   }
@@ -48,9 +61,14 @@ export default function TasksTable() {
     setSortModel(newModel)
   }
 
-  const handleRowClick = (task: Task) => {
+  const handleEditTaskClick = (task: Task) => {
     setSelectedTask(task)
     setEditDialogOpen(true)
+  }
+
+  const handleDeleteTaskClick = (task: Task) => {
+    setTaskToDelete(task)
+    setDeleteTaskDialogOpen(true)
   }
 
   const rows = mockTasks
@@ -209,12 +227,12 @@ export default function TasksTable() {
         align: 'right',
         headerAlign: 'right',
         renderHeader: () => <Box />,
-        renderCell: () => (
+        renderCell: (params) => (
           <Stack direction='row' spacing={0} justifyContent='flex-end' width='100%'>
-            <IconButton size='small' sx={{ color: 'text.secondary' }}>
+            <IconButton size='small' sx={{ color: 'text.secondary' }} onClick={() => handleEditTaskClick(params.row)}>
               <EditIcon fontSize='small' />
             </IconButton>
-            <IconButton size='small' sx={{ color: 'text.secondary' }}>
+            <IconButton size='small' sx={{ color: 'text.secondary' }} onClick={() => handleDeleteTaskClick(params.row)}>
               <DeleteIcon fontSize='small' />
             </IconButton>
           </Stack>
@@ -235,7 +253,6 @@ export default function TasksTable() {
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick
-        onRowClick={(params) => handleRowClick(params.row)}
         autoHeight
         density='standard'
         rowHeight={52}
@@ -315,10 +332,18 @@ export default function TasksTable() {
           }
         }}
       />
+
       <EditTaskDialog
         editTaskDialogOpen={editDialogOpen}
         onEditTaskDialogClose={handleEditTaskDialogClose}
         task={selectedTask}
+      />
+
+      <DeleteTaskDialog
+        deleteTaskDialogOpen={deleteTaskDialogOpen}
+        onDeleteTaskDialogClose={handleDeleteTaskDialogClose}
+        onDeleteTaskConfirm={handleDeleteTaskConfirm}
+        taskId={taskToDelete?.id}
       />
     </Box>
   )

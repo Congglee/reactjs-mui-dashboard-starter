@@ -33,11 +33,13 @@ export default function NewTaskDialog({ newTaskDialogOpen, onNewTaskDialogClose 
       anchor='right'
       open={newTaskDialogOpen}
       onClose={onNewTaskDialogClose}
-      PaperProps={{
-        sx: {
-          width: { xs: '100%', sm: 400 },
-          display: 'flex',
-          flexDirection: 'column'
+      slotProps={{
+        paper: {
+          sx: {
+            width: { xs: '100%', sm: 400 },
+            display: 'flex',
+            flexDirection: 'column'
+          }
         }
       }}
     >

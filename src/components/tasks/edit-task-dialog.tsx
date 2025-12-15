@@ -53,11 +53,13 @@ export default function EditTaskDialog({ editTaskDialogOpen, onEditTaskDialogClo
       anchor='right'
       open={editTaskDialogOpen}
       onClose={onEditTaskDialogClose}
-      PaperProps={{
-        sx: {
-          width: { xs: '100%', sm: 400 },
-          display: 'flex',
-          flexDirection: 'column'
+      slotProps={{
+        paper: {
+          sx: {
+            width: { xs: '100%', sm: 400 },
+            display: 'flex',
+            flexDirection: 'column'
+          }
         }
       }}
     >

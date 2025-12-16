@@ -29,7 +29,7 @@ export default function DeleteTaskDialog({
       slotProps={{
         paper: {
           sx: {
-            borderRadius: '16px',
+            borderRadius: 2.5,
             backgroundImage: 'none',
             bgcolor: 'background.paper',
             border: '1px solid',
@@ -37,13 +37,13 @@ export default function DeleteTaskDialog({
             maxWidth: '480px',
             p: 1
           }
-        },
-        backdrop: {
-          sx: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(4px)'
-          }
         }
+        // backdrop: {
+        //   sx: {
+        //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        //     backdropFilter: 'blur(4px)'
+        //   }
+        // }
       }}
     >
       <DialogTitle sx={{ pt: 2, pb: 1, px: 3 }}>

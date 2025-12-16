@@ -46,7 +46,7 @@ export default function ForgotPassword() {
 
     const form = event.currentTarget as HTMLFormElement
     const data = new FormData(form)
-    console.log({ email: data.get('email') })
+    console.log('Forgot password form submitted:', { email: data.get('email') })
     handleForgotPasswordClose()
   }
 

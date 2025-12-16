@@ -1,4 +1,6 @@
-import type { TreeNode, CountryData, Task, Assignee } from '@/types/mock-data.type'
+import type { TreeNode, CountryData, Task, Assignee, User } from '@/types/mock-data.type'
+
+export const mockUserRoles = ['Admin', 'Manager', 'Cashier', 'Superadmin'] as const
 
 export const mockUsersSpark = [12, 13, 12, 13, 13, 14, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18]
 
@@ -320,5 +322,220 @@ export const mockTasks: Task[] = [
     assignee: undefined,
     createdAt: '2024-01-19T13:00:00Z',
     updatedAt: '2024-01-19T13:00:00Z'
+  }
+]
+
+export const mockUsers: User[] = [
+  {
+    id: '1',
+    firstName: 'Freeman',
+    lastName: 'Dicki',
+    username: 'freeman.dicki',
+    name: 'Freeman Dicki',
+    email: 'freeman83@gmail.com',
+    phoneNumber: '+16972759140',
+    status: 'Invited',
+    role: 'Cashier',
+    createdAt: '2024-01-15T08:30:00Z',
+    updatedAt: '2024-01-15T08:30:00Z'
+  },
+  {
+    id: '2',
+    firstName: 'Nick',
+    lastName: 'Bashirian-Lowe',
+    username: 'nick.bashirian-lowe',
+    name: 'Nick Bashirian-Lowe',
+    email: 'nick_donnelly@gmail.com',
+    phoneNumber: '+17425632370',
+    status: 'Invited',
+    role: 'Admin',
+    createdAt: '2024-01-10T09:15:00Z',
+    updatedAt: '2024-01-20T14:45:00Z',
+    lastLogin: '2024-01-20T14:45:00Z'
+  },
+  {
+    id: '3',
+    firstName: 'Ardith',
+    lastName: 'Jast',
+    username: 'ardith_jast',
+    name: 'Ardith Jast',
+    email: 'ardith_crist@gmail.com',
+    phoneNumber: '+13553118532',
+    status: 'Suspended',
+    role: 'Cashier',
+    createdAt: '2024-01-05T11:00:00Z',
+    updatedAt: '2024-01-18T16:20:00Z',
+    lastLogin: '2024-01-15T09:30:00Z'
+  },
+  {
+    id: '4',
+    firstName: 'Jeffrey',
+    lastName: 'Collins',
+    username: 'jeffrey_collins81',
+    name: 'Jeffrey Collins',
+    email: 'jeffrey.stark98@hotmail.com',
+    phoneNumber: '+14646410541',
+    status: 'Inactive',
+    role: 'Manager',
+    createdAt: '2023-12-20T10:45:00Z',
+    updatedAt: '2024-01-10T12:00:00Z',
+    lastLogin: '2024-01-05T14:15:00Z'
+  },
+  {
+    id: '5',
+    firstName: 'Ashton',
+    lastName: 'Auer',
+    username: 'ashton_auer',
+    name: 'Ashton Auer',
+    email: 'ashton_hegmann67@yahoo.com',
+    phoneNumber: '+14345495030',
+    status: 'Suspended',
+    role: 'Superadmin',
+    createdAt: '2023-11-15T08:00:00Z',
+    updatedAt: '2024-01-12T15:30:00Z',
+    lastLogin: '2023-12-28T11:45:00Z'
+  },
+  {
+    id: '6',
+    firstName: 'Golda',
+    lastName: 'Gleason',
+    username: 'golda.gleason',
+    name: 'Golda Gleason',
+    email: 'golda.smith32@gmail.com',
+    phoneNumber: '+14606427316',
+    status: 'Active',
+    role: 'Manager',
+    createdAt: '2023-10-10T13:20:00Z',
+    updatedAt: '2024-01-22T09:10:00Z',
+    lastLogin: '2024-01-22T09:10:00Z'
+  },
+  {
+    id: '7',
+    firstName: 'Maurine',
+    lastName: 'Rutherford',
+    username: 'maurine.rutherford',
+    name: 'Maurine Rutherford',
+    email: 'maurine_bechtelar@gmail.com',
+    phoneNumber: '+16544865144',
+    status: 'Suspended',
+    role: 'Manager',
+    createdAt: '2023-09-05T14:30:00Z',
+    updatedAt: '2024-01-08T16:45:00Z',
+    lastLogin: '2023-12-20T08:20:00Z'
+  },
+  {
+    id: '8',
+    firstName: 'Alford',
+    lastName: 'Wehner',
+    username: 'alford.wehner',
+    name: 'Alford Wehner',
+    email: 'alford36@hotmail.com',
+    phoneNumber: '+12134843128',
+    status: 'Active',
+    role: 'Manager',
+    createdAt: '2023-08-15T07:45:00Z',
+    updatedAt: '2024-01-21T11:25:00Z',
+    lastLogin: '2024-01-21T11:25:00Z'
+  },
+  {
+    id: '9',
+    firstName: 'Theresa',
+    lastName: 'Rolfson',
+    username: 'theresa_rolfson46',
+    name: 'Theresa Rolfson',
+    email: 'theresa.mertz@yahoo.com',
+    phoneNumber: '+17353031624',
+    status: 'Suspended',
+    role: 'Cashier',
+    createdAt: '2023-07-20T12:15:00Z',
+    updatedAt: '2024-01-14T10:30:00Z',
+    lastLogin: '2023-11-30T14:50:00Z'
+  },
+  {
+    id: '10',
+    firstName: 'Buford',
+    lastName: 'Bradtke',
+    username: 'buford.bradtke',
+    name: 'Buford Bradtke',
+    email: 'buford68@yahoo.com',
+    phoneNumber: '+16715125120',
+    status: 'Suspended',
+    role: 'Cashier',
+    createdAt: '2023-06-10T09:00:00Z',
+    updatedAt: '2024-01-16T13:15:00Z',
+    lastLogin: '2023-10-15T16:25:00Z'
+  },
+  // Additional users for more comprehensive testing
+  {
+    id: '11',
+    firstName: 'Emily',
+    lastName: 'Anderson',
+    username: 'emily.anderson',
+    name: 'Emily Anderson',
+    email: 'emily.anderson@company.com',
+    phoneNumber: '+15551234567',
+    status: 'Active',
+    role: 'Admin',
+    createdAt: '2023-12-01T10:00:00Z',
+    updatedAt: '2024-01-22T14:00:00Z',
+    lastLogin: '2024-01-22T14:00:00Z',
+    avatar: '/avatars/emily.jpg'
+  },
+  {
+    id: '12',
+    firstName: 'Michael',
+    lastName: 'Taylor',
+    username: 'michael.taylor',
+    name: 'Michael Taylor',
+    email: 'michael.taylor@company.com',
+    phoneNumber: '+15557654321',
+    status: 'Active',
+    role: 'Superadmin',
+    createdAt: '2023-05-15T08:30:00Z',
+    updatedAt: '2024-01-20T16:00:00Z',
+    lastLogin: '2024-01-20T16:00:00Z',
+    avatar: '/avatars/michael.jpg'
+  },
+  {
+    id: '13',
+    firstName: 'Sarah',
+    lastName: 'Martinez',
+    username: 'sarah.martinez',
+    name: 'Sarah Martinez',
+    email: 'sarah.martinez@company.com',
+    phoneNumber: '+15559876543',
+    status: 'Inactive',
+    role: 'Cashier',
+    createdAt: '2023-11-20T11:45:00Z',
+    updatedAt: '2024-01-05T09:30:00Z',
+    lastLogin: '2023-12-25T10:15:00Z'
+  },
+  {
+    id: '14',
+    firstName: 'David',
+    lastName: 'Chen',
+    username: 'david.chen',
+    name: 'David Chen',
+    email: 'david.chen@company.com',
+    phoneNumber: '+15552345678',
+    status: 'Active',
+    role: 'Manager',
+    createdAt: '2023-09-10T13:00:00Z',
+    updatedAt: '2024-01-21T15:45:00Z',
+    lastLogin: '2024-01-21T15:45:00Z',
+    avatar: '/avatars/david.jpg'
+  },
+  {
+    id: '15',
+    firstName: 'Lisa',
+    lastName: 'Wilson',
+    username: 'lisa.wilson',
+    name: 'Lisa Wilson',
+    email: 'lisa.wilson@company.com',
+    phoneNumber: '+15558765432',
+    status: 'Invited',
+    role: 'Cashier',
+    createdAt: '2024-01-18T10:20:00Z',
+    updatedAt: '2024-01-18T10:20:00Z'
   }
 ]

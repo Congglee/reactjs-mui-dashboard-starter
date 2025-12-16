@@ -122,7 +122,7 @@ export default function Sidebar({ width = SIDEBAR_WIDTH }: SidebarProps) {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           <NavItem icon={HomeIcon} label='Home' href='/dashboard' collapsed={isCollapsed} />
           <NavItem icon={AnalyticsIcon} label='Analytics' href='/analytics' collapsed={isCollapsed} />
-          <NavItem icon={UsersIcon} label='Clients' href='/clients' collapsed={isCollapsed} />
+          <NavItem icon={UsersIcon} label='Users' href='/users' collapsed={isCollapsed} />
           <NavItem icon={TasksIcon} label='Tasks' href='/tasks' collapsed={isCollapsed} />
         </Box>
 

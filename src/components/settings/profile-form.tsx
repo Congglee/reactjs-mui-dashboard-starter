@@ -68,7 +68,7 @@ export default function ProfileForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+    console.log('Profile form submitted:', formData)
   }
 
   return (

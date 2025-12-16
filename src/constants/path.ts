@@ -5,6 +5,7 @@ const path = {
   // Dashboard Pages
   dashboard: '/dashboard',
   tasks: '/tasks',
+  users: '/users',
   settings: '/settings',
   account: '/settings/account',
   appearance: '/settings/appearance',

@@ -28,8 +28,10 @@ export default function Register() {
       event.preventDefault()
       return
     }
+
     const data = new FormData(event.currentTarget)
-    console.log({
+
+    console.log('Register form submitted:', {
       name: data.get('name'),
       email: data.get('email'),
       password: data.get('password')

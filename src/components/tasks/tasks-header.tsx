@@ -1,5 +1,5 @@
 import PageHeader from '@/components/page-header'
-import NewTaskDialog from '@/components/tasks/new-task-dialog'
+import NewTaskDrawer from '@/components/tasks/new-task-drawer'
 import AddIcon from '@mui/icons-material/Add'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Box from '@mui/material/Box'
@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 
 export default function TasksHeader() {
-  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState(false)
+  const [newTaskDrawerOpen, setNewTaskDrawerOpen] = useState(false)
 
-  const handleNewTaskDialogClose = () => {
-    setNewTaskDialogOpen(false)
+  const handleNewTaskDrawerClose = () => {
+    setNewTaskDrawerOpen(false)
   }
 
   return (
@@ -21,13 +21,21 @@ export default function TasksHeader() {
       <Box sx={{ mb: 3, display: 'flex', flexDirection: 'column' }}>
         <PageHeader breadcrumbs={[{ label: 'Tasks', current: true }]} />
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: { xs: 'flex-start', sm: 'center' },
+            justifyContent: { xs: 'flex-start', sm: 'space-between' },
+            gap: 1
+          }}
+        >
           <Typography
             variant='h2'
             component='h1'
             sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.6, color: 'text.primary' }}
           >
-            Tasks
+            Task List
           </Typography>
           <Stack direction='row' spacing={1}>
             <IconButton sx={{ color: 'text.secondary' }}>
@@ -36,7 +44,7 @@ export default function TasksHeader() {
             <Button
               variant='contained'
               startIcon={<AddIcon />}
-              onClick={() => setNewTaskDialogOpen(true)}
+              onClick={() => setNewTaskDrawerOpen(true)}
               sx={{
                 textTransform: 'none',
                 fontWeight: 600,
@@ -49,7 +57,7 @@ export default function TasksHeader() {
         </Box>
       </Box>
 
-      <NewTaskDialog newTaskDialogOpen={newTaskDialogOpen} onNewTaskDialogClose={handleNewTaskDialogClose} />
+      <NewTaskDrawer newTaskDrawerOpen={newTaskDrawerOpen} onNewTaskDrawerClose={handleNewTaskDrawerClose} />
     </>
   )
 }

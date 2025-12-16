@@ -20,19 +20,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 
-interface NewTaskDialogProps {
-  newTaskDialogOpen: boolean
-  onNewTaskDialogClose: () => void
+interface NewTaskDrawerProps {
+  newTaskDrawerOpen: boolean
+  onNewTaskDrawerClose: () => void
 }
 
-export default function NewTaskDialog({ newTaskDialogOpen, onNewTaskDialogClose }: NewTaskDialogProps) {
+export default function NewTaskDrawer({ newTaskDrawerOpen, onNewTaskDrawerClose }: NewTaskDrawerProps) {
   const [selectedAssignee, setSelectedAssignee] = useState<Assignee | null>(null)
 
   return (
     <Drawer
       anchor='right'
-      open={newTaskDialogOpen}
-      onClose={onNewTaskDialogClose}
+      open={newTaskDrawerOpen}
+      onClose={onNewTaskDrawerClose}
       slotProps={{
         paper: {
           sx: {
@@ -52,7 +52,7 @@ export default function NewTaskDialog({ newTaskDialogOpen, onNewTaskDialogClose 
             Add a new task by providing necessary info. Click save when you're done.
           </Typography>
         </Box>
-        <IconButton onClick={onNewTaskDialogClose} size='small'>
+        <IconButton onClick={onNewTaskDrawerClose} size='small'>
           <CloseIcon />
         </IconButton>
       </Box>
@@ -138,7 +138,7 @@ export default function NewTaskDialog({ newTaskDialogOpen, onNewTaskDialogClose 
         <Button
           variant='outlined'
           fullWidth
-          onClick={onNewTaskDialogClose}
+          onClick={onNewTaskDrawerClose}
           sx={{ color: 'text.primary', borderColor: 'divider', textTransform: 'none' }}
         >
           Close

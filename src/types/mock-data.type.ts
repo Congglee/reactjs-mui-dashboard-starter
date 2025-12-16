@@ -26,6 +26,26 @@ export type TaskStatus = 'Canceled' | 'Done' | 'In Progress' | 'Todo' | 'Backlog
 
 export type TaskPriority = 'Low' | 'Medium' | 'High'
 
+export type UserStatus = 'Active' | 'Inactive' | 'Invited' | 'Suspended'
+
+export type UserRole = 'Admin' | 'Manager' | 'Cashier' | 'Superadmin'
+
+export interface User {
+  id: string
+  username: string
+  name: string
+  firstName?: string
+  lastName?: string
+  email: string
+  phoneNumber: string
+  status: UserStatus
+  role: UserRole
+  avatar?: string
+  createdAt?: string
+  updatedAt?: string
+  lastLogin?: string
+}
+
 export interface Assignee {
   id: string
   name: string

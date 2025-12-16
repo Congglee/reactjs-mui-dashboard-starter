@@ -13,6 +13,7 @@ import Display from '@/routes/settings/display'
 import Notifications from '@/routes/settings/notifications'
 import Profile from '@/routes/settings/profile'
 import Tasks from '@/routes/tasks'
+import Users from '@/routes/users'
 import { Route, Routes } from 'react-router'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='' element={<DashboardLayout />}>
           <Route path={path.dashboard} element={<Dashboard />} />
           <Route path={path.tasks} element={<Tasks />} />
+          <Route path={path.users} element={<Users />} />
 
           <Route path='' element={<SettingsLayout />}>
             <Route path={path.settings} element={<Profile />} />

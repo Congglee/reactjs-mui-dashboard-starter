@@ -1,13 +1,14 @@
-import DeleteTaskDialog from '@/components/tasks/delete-task-dialog'
-import EditTaskDrawer from '@/components/tasks/edit-task-drawer'
-import TasksTableSkeleton from '@/components/tasks/tasks-table-skeleton'
-import { mockTasks } from '@/constants/mock-data'
-import type { Task, TaskPriority } from '@/types/mock-data.type'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseIcon from '@mui/icons-material/Close'
+import DeleteUserDialog from '@/components/users/delete-user-dialog'
+import EditUserDialog from '@/components/users/edit-user-dialog'
+import UsersTableSkeleton from '@/components/users/users-table-skeleton'
+import { mockUsers } from '@/constants/mock-data'
+import type { User, UserRole, UserStatus } from '@/types/mock-data.type'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
+import PersonIcon from '@mui/icons-material/Person'
+import SecurityIcon from '@mui/icons-material/Security'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import IconButton from '@mui/material/IconButton'
@@ -16,15 +17,15 @@ import Typography from '@mui/material/Typography'
 import { DataGrid, gridClasses, type GridColDef, type GridFilterModel, type GridSortModel } from '@mui/x-data-grid'
 import { useEffect, useMemo, useState } from 'react'
 
-export default function TasksTable() {
+export default function UsersTable() {
   const [isLoading, setIsLoading] = useState(true)
-  const [editTaskDrawerOpen, setEditTaskDrawerOpen] = useState(false)
-  const [deleteTaskDialogOpen, setDeleteTaskDialogOpen] = useState(false)
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
-  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null)
   const [columnVisibilityModel, setColumnVisibilityModel] = useState<Record<string, boolean>>({})
   const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
   const [sortModel, setSortModel] = useState<GridSortModel>([])
+  const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
+  const [selectedUser, setSelectedUser] = useState<User | null>(null)
+  const [deleteUserDialogOpen, setDeleteUserDialogOpen] = useState(false)
+  const [userToDelete, setUserToDelete] = useState<User | null>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,21 +34,6 @@ export default function TasksTable() {
 
     return () => clearTimeout(timer)
   }, [])
-
-  const handleEditTaskDrawerClose = () => {
-    setEditTaskDrawerOpen(false)
-    setSelectedTask(null)
-  }
-
-  const handleDeleteTaskDialogClose = () => {
-    setDeleteTaskDialogOpen(false)
-    setTaskToDelete(null)
-  }
-
-  const handleDeleteTaskConfirm = () => {
-    console.log('Deleting task:', taskToDelete?.id)
-    handleDeleteTaskDialogClose()
-  }
 
   const handleColumnVisibilityChange = (newModel: Record<string, boolean>) => {
     setColumnVisibilityModel(newModel)
@@ -61,17 +47,32 @@ export default function TasksTable() {
     setSortModel(newModel)
   }
 
-  const handleEditTaskClick = (task: Task) => {
-    setSelectedTask(task)
-    setEditTaskDrawerOpen(true)
+  const handleEditUserDialogOpen = (user: User) => {
+    setSelectedUser(user)
+    setEditUserDialogOpen(true)
   }
 
-  const handleDeleteTaskClick = (task: Task) => {
-    setTaskToDelete(task)
-    setDeleteTaskDialogOpen(true)
+  const handleEditUserDialogClose = () => {
+    setEditUserDialogOpen(false)
+    setSelectedUser(null)
   }
 
-  const rows = mockTasks
+  const handleDeleteUserDialogOpen = (user: User) => {
+    setUserToDelete(user)
+    setDeleteUserDialogOpen(true)
+  }
+
+  const handleDeleteUserDialogClose = () => {
+    setDeleteUserDialogOpen(false)
+    setUserToDelete(null)
+  }
+
+  const handleDeleteUserConfirm = () => {
+    console.log('Deleting user:', userToDelete?.id)
+    handleDeleteUserDialogClose()
+  }
+
+  const rows = mockUsers
 
   const headerLabel = (text: string) => (
     <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }} noWrap>
@@ -79,37 +80,11 @@ export default function TasksTable() {
     </Typography>
   )
 
-  const getPriorityChipProps = (priority: TaskPriority) => {
-    switch (priority) {
-      case 'High':
+  const getStatusChipProps = (status: UserStatus) => {
+    switch (status) {
+      case 'Active':
         return {
-          label: 'High',
-          sx: {
-            height: 24,
-            fontSize: '0.75rem',
-            borderRadius: 999,
-            px: 0.75,
-            bgcolor: 'var(--color-error-bg)',
-            color: 'var(--color-error)',
-            border: '1px solid var(--color-error-border)'
-          }
-        }
-      case 'Medium':
-        return {
-          label: 'Medium',
-          sx: {
-            height: 24,
-            fontSize: '0.75rem',
-            borderRadius: 999,
-            px: 0.75,
-            bgcolor: 'var(--color-warning-bg)',
-            color: 'var(--color-warning)',
-            border: '1px solid var(--color-warning-border)'
-          }
-        }
-      case 'Low':
-        return {
-          label: 'Low',
+          label: 'Active',
           sx: {
             height: 24,
             fontSize: '0.75rem',
@@ -120,9 +95,48 @@ export default function TasksTable() {
             border: '1px solid var(--color-success-border)'
           }
         }
+      case 'Inactive':
+        return {
+          label: 'Inactive',
+          sx: {
+            height: 24,
+            fontSize: '0.75rem',
+            borderRadius: 999,
+            px: 0.75,
+            bgcolor: 'var(--color-flag-bg)',
+            color: 'text.secondary',
+            border: '1px solid var(--color-flag-border)'
+          }
+        }
+      case 'Invited':
+        return {
+          label: 'Invited',
+          sx: {
+            height: 24,
+            fontSize: '0.75rem',
+            borderRadius: 999,
+            px: 0.75,
+            bgcolor: 'var(--color-info-bg)',
+            color: 'var(--color-info)',
+            border: '1px solid var(--color-info-border)'
+          }
+        }
+      case 'Suspended':
+        return {
+          label: 'Suspended',
+          sx: {
+            height: 24,
+            fontSize: '0.75rem',
+            borderRadius: 999,
+            px: 0.75,
+            bgcolor: 'var(--color-error-bg)',
+            color: 'var(--color-error)',
+            border: '1px solid var(--color-error-border)'
+          }
+        }
       default:
         return {
-          label: priority,
+          label: status,
           sx: {
             height: 24,
             fontSize: '0.75rem',
@@ -136,63 +150,62 @@ export default function TasksTable() {
     }
   }
 
-  const columns: GridColDef<Task>[] = useMemo(
+  const getRoleIcon = (role: UserRole) => {
+    switch (role) {
+      case 'Superadmin':
+        return <SecurityIcon fontSize='small' sx={{ color: 'error.main', mr: 0.5 }} />
+      case 'Admin':
+        return <AdminPanelSettingsIcon fontSize='small' sx={{ color: 'warning.main', mr: 0.5 }} />
+      case 'Manager':
+        return <ManageAccountsIcon fontSize='small' sx={{ color: 'info.main', mr: 0.5 }} />
+      case 'Cashier':
+        return <PersonIcon fontSize='small' sx={{ color: 'text.secondary', mr: 0.5 }} />
+      default:
+        return <PersonIcon fontSize='small' sx={{ color: 'text.secondary', mr: 0.5 }} />
+    }
+  }
+
+  const columns: GridColDef<User>[] = useMemo(
     () => [
       {
-        field: 'id',
-        headerName: 'ID',
-        width: 120,
-        renderHeader: () => headerLabel('ID'),
+        field: 'username',
+        headerName: 'Username',
+        width: 180,
+        renderHeader: () => headerLabel('Username'),
         renderCell: (params) => (
           <Typography variant='body2' sx={{ fontWeight: 500 }}>
-            {params.value?.replace('TASK-', '')}
-          </Typography>
-        )
-      },
-      {
-        field: 'title',
-        headerName: 'Title',
-        flex: 1,
-        minWidth: 250,
-        renderHeader: () => headerLabel('Title'),
-        renderCell: (params) => (
-          <Typography variant='body2' noWrap sx={{ fontWeight: 500 }}>
             {params.value}
           </Typography>
         )
       },
       {
-        field: 'priority',
-        headerName: 'Priority',
-        width: 120,
-        type: 'singleSelect',
-        valueOptions: ['High', 'Medium', 'Low'],
-        renderHeader: () => headerLabel('Priority'),
-        renderCell: (params) => {
-          const chipProps = getPriorityChipProps(params.value)
-          return <Chip {...chipProps} size='small' />
-        }
-      },
-      {
-        field: 'createdAt',
-        headerName: 'Created At',
-        width: 150,
-        type: 'date',
-        valueGetter: (value) => (value ? new Date(value) : null),
-        renderHeader: () => headerLabel('Created At'),
+        field: 'name',
+        headerName: 'Name',
+        width: 180,
+        renderHeader: () => headerLabel('Name'),
         renderCell: (params) => (
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            {params.value ? new Date(params.value).toLocaleDateString('en-GB') : '-'}
+          <Typography variant='body2' sx={{ color: 'text.primary' }}>
+            {params.value}
           </Typography>
         )
       },
       {
-        field: 'category',
-        headerName: 'Category',
-        width: 150,
-        type: 'singleSelect',
-        valueOptions: ['Feature', 'Bug', 'Documentation', 'Enhancement', 'Refactoring'],
-        renderHeader: () => headerLabel('Category'),
+        field: 'email',
+        headerName: 'Email',
+        flex: 1,
+        minWidth: 220,
+        renderHeader: () => headerLabel('Email'),
+        renderCell: (params) => (
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            {params.value}
+          </Typography>
+        )
+      },
+      {
+        field: 'phoneNumber',
+        headerName: 'Phone Number',
+        width: 160,
+        renderHeader: () => headerLabel('Phone Number'),
         renderCell: (params) => (
           <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             {params.value}
@@ -202,20 +215,30 @@ export default function TasksTable() {
       {
         field: 'status',
         headerName: 'Status',
-        width: 100,
+        width: 120,
         type: 'singleSelect',
-        valueOptions: ['Done', 'Canceled', 'In Progress', 'Backlog', 'Todo'],
-        align: 'center',
-        headerAlign: 'center',
+        valueOptions: ['Active', 'Inactive', 'Invited', 'Suspended'],
         renderHeader: () => headerLabel('Status'),
         renderCell: (params) => {
-          const isDone = params.value === 'Done'
-          const isCanceled = params.value === 'Canceled'
-
-          if (isDone) return <CheckIcon fontSize='small' sx={{ color: 'text.secondary' }} />
-          if (isCanceled) return <CloseIcon fontSize='small' sx={{ color: 'text.secondary' }} />
-          return <MoreHorizIcon fontSize='small' sx={{ color: 'text.secondary' }} />
+          const chipProps = getStatusChipProps(params.value)
+          return <Chip {...chipProps} size='small' />
         }
+      },
+      {
+        field: 'role',
+        headerName: 'Role',
+        width: 140,
+        type: 'singleSelect',
+        valueOptions: ['Superadmin', 'Admin', 'Manager', 'Cashier'],
+        renderHeader: () => headerLabel('Role'),
+        renderCell: (params) => (
+          <Stack direction='row' alignItems='center'>
+            {getRoleIcon(params.value)}
+            <Typography variant='body2' sx={{ color: 'text.primary' }}>
+              {params.value}
+            </Typography>
+          </Stack>
+        )
       },
       {
         field: 'actions',
@@ -229,10 +252,18 @@ export default function TasksTable() {
         renderHeader: () => <Box />,
         renderCell: (params) => (
           <Stack direction='row' spacing={0} justifyContent='flex-end' width='100%'>
-            <IconButton size='small' sx={{ color: 'text.secondary' }} onClick={() => handleEditTaskClick(params.row)}>
+            <IconButton
+              size='small'
+              sx={{ color: 'text.secondary' }}
+              onClick={() => handleEditUserDialogOpen(params.row)}
+            >
               <EditIcon fontSize='small' />
             </IconButton>
-            <IconButton size='small' sx={{ color: 'text.secondary' }} onClick={() => handleDeleteTaskClick(params.row)}>
+            <IconButton
+              size='small'
+              sx={{ color: 'text.secondary' }}
+              onClick={() => handleDeleteUserDialogOpen(params.row)}
+            >
               <DeleteIcon fontSize='small' />
             </IconButton>
           </Stack>
@@ -243,7 +274,7 @@ export default function TasksTable() {
   )
 
   if (isLoading) {
-    return <TasksTableSkeleton />
+    return <UsersTableSkeleton />
   }
 
   return (
@@ -320,7 +351,6 @@ export default function TasksTable() {
             color: 'text.secondary'
           },
           '& .MuiDataGrid-columnSeparator': { display: 'none' },
-          // Toolbar styling
           [`& .${gridClasses.toolbarContainer}`]: {
             p: 1.5
           },
@@ -333,17 +363,17 @@ export default function TasksTable() {
         }}
       />
 
-      <EditTaskDrawer
-        editTaskDrawerOpen={editTaskDrawerOpen}
-        onEditTaskDrawerClose={handleEditTaskDrawerClose}
-        task={selectedTask}
+      <EditUserDialog
+        editUserDialogOpen={editUserDialogOpen}
+        onEditUserDialogClose={handleEditUserDialogClose}
+        user={selectedUser}
       />
 
-      <DeleteTaskDialog
-        deleteTaskDialogOpen={deleteTaskDialogOpen}
-        onDeleteTaskDialogClose={handleDeleteTaskDialogClose}
-        onDeleteTaskConfirm={handleDeleteTaskConfirm}
-        taskId={taskToDelete?.id}
+      <DeleteUserDialog
+        deleteUserDialogOpen={deleteUserDialogOpen}
+        onDeleteUserDialogClose={handleDeleteUserDialogClose}
+        onDeleteUserConfirm={handleDeleteUserConfirm}
+        user={userToDelete}
       />
     </Box>
   )

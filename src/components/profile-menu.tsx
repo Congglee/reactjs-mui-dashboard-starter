@@ -1,3 +1,4 @@
+import path from '@/constants/path'
 import LogoutIcon from '@mui/icons-material/Logout'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Divider from '@mui/material/Divider'
@@ -9,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 import type { PopoverOrigin } from '@mui/material/Popover'
 import { useTheme } from '@mui/material/styles'
 import { useState, type MouseEvent, type ReactNode } from 'react'
+import { NavLink } from 'react-router'
 
 type ProfileMenuPlacement = 'default' | 'side'
 
@@ -140,14 +142,23 @@ export default function ProfileMenu({
           }
         }}
       >
-        <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>My account</MenuItem>
+        <MenuItem component={NavLink} to={path.settings}>
+          Profile
+        </MenuItem>
+        <MenuItem component={NavLink} to={path.account}>
+          My account
+        </MenuItem>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleProfileMenuClose}>Add another account</MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>Settings</MenuItem>
+        <MenuItem component={NavLink} to={path.register}>
+          Add another account
+        </MenuItem>
+        <MenuItem component={NavLink} to={path.settings}>
+          Settings
+        </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem
-          onClick={handleProfileMenuClose}
+          component={NavLink}
+          to={path.login}
           sx={{ color: 'text.primary', display: 'flex', justifyContent: 'space-between', gap: 1 }}
         >
           Logout

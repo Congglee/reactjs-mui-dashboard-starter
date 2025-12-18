@@ -26,8 +26,8 @@ createRoot(document.getElementById('root')!).render(
                 <App />
               </AppProvider>
             </LocalizationProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
           </ErrorBoundary>
+          <ReactQueryDevtools initialIsOpen={false} />
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>

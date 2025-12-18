@@ -6,6 +6,7 @@ import path from '@/constants/path'
 import Dashboard from '@/routes/dashboard'
 import Landing from '@/routes/landing'
 import Login from '@/routes/login'
+import NotFound from '@/routes/not-found'
 import Register from '@/routes/register'
 import Account from '@/routes/settings/account'
 import Appearance from '@/routes/settings/appearance'
@@ -40,6 +41,8 @@ function App() {
           <Route path={path.login} element={<Login />} />
           <Route path={path.register} element={<Register />} />
         </Route>
+
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
   )

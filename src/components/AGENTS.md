@@ -1,18 +1,22 @@
 ## Package identity
 
-- **Purpose**: Reusable UI components for the dashboard application.
-- **Tech**: React 19 functional components + Material UI v7 + TypeScript.
+- **Purpose**: Reusable UI components for the dashboard application
+- **Tech**: React 19 functional components + Material UI v7 + TypeScript
 
 ## Folder structure
 
 ```
 components/
-├── dashboard/        # Dashboard-specific widgets (cards, charts, tables)
+├── auth/             # Auth-related components (cards, forms)
+├── dashboard/        # Dashboard widgets (cards, charts, tables)
 ├── icons/            # Custom SVG icons using MUI SvgIcon
-├── landing/          # Landing page sections (hero, features, pricing, etc.)
-├── layouts/          # Page layouts (DashboardLayout, MainLayout)
+├── landing/          # Landing page sections (hero, features, pricing)
+├── layouts/          # Page layouts (Dashboard, Main, Auth, Settings)
+├── settings/         # Settings page components
 ├── tasks/            # Task management components
+├── users/            # User management components
 ├── date-picker.tsx   # Shared date picker
+├── error-boundary.tsx # Error boundary wrapper
 ├── logo.tsx          # App logo
 ├── nav-item.tsx      # Sidebar navigation item
 ├── navbar.tsx        # Top navigation bar
@@ -24,7 +28,7 @@ components/
 
 ## Patterns & conventions
 
-### Component structure (example)
+### Component structure
 
 ```tsx
 // ✅ DO: Follow this pattern (see src/components/dashboard/metric-card.tsx)
@@ -50,7 +54,7 @@ export default function MetricCard({ title, value }: MetricCardProps) {
 // ✅ DO: Use sx prop for component-level styling
 <Box sx={{ p: 2, borderRadius: 1.5, bgcolor: 'var(--color-card-bg)' }}>
 
-// ✅ DO: Dark mode with applyStyles (see src/components/sidebar.tsx:170-175)
+// ✅ DO: Dark mode with applyStyles (see sidebar.tsx)
 sx={[
   { boxShadow: '0 2px 14px rgba(0,0,0,0.06)' },
   (theme) => theme.applyStyles('dark', {
@@ -62,10 +66,24 @@ sx={[
 // ❌ DON'T: Check theme.palette.mode directly
 ```
 
+### MUI Grid v7
+
+```tsx
+// ✅ DO: Use size prop (v7 style)
+<Grid container spacing={2}>
+  <Grid size={{ xs: 12, md: 6 }}>{/* content */}</Grid>
+</Grid>
+
+// ❌ DON'T: Use item/xs/md props (v5/v6 style)
+<Grid container spacing={2}>
+  <Grid item xs={12} md={6}>{/* content */}</Grid>
+</Grid>
+```
+
 ### Custom icons (see src/components/icons/)
 
 ```tsx
-// ✅ DO: Use SvgIcon wrapper (see src/components/icons/analytics-icon.tsx)
+// ✅ DO: Use SvgIcon wrapper
 import SvgIcon, { type SvgIconProps } from '@mui/material/SvgIcon'
 
 export default function AnalyticsIcon(props: SvgIconProps) {
@@ -82,7 +100,7 @@ export default function AnalyticsIcon(props: SvgIconProps) {
 ### Layout components (see src/components/layouts/)
 
 ```tsx
-// ✅ DO: Use Outlet for nested routes (see dashboard-layout.tsx)
+// ✅ DO: Use Outlet for nested routes
 import { Outlet } from 'react-router'
 
 export default function DashboardLayout() {
@@ -102,16 +120,19 @@ export default function DashboardLayout() {
 
 ## File examples to copy
 
-| Task                | Reference file                                 |
-| ------------------- | ---------------------------------------------- |
-| Dashboard card      | `src/components/dashboard/metric-card.tsx`     |
-| Data table          | `src/components/dashboard/dashboard-table.tsx` |
-| Chart component     | `src/components/dashboard/chart-card.tsx`      |
-| Custom icon         | `src/components/icons/analytics-icon.tsx`      |
-| Layout with sidebar | `src/components/layouts/dashboard-layout.tsx`  |
-| Navigation item     | `src/components/nav-item.tsx`                  |
-| Dropdown menu       | `src/components/profile-menu.tsx`              |
-| Landing section     | `src/components/landing/hero.tsx`              |
+| Task | Reference file |
+|------|----------------|
+| Dashboard card | `src/components/dashboard/metric-card.tsx` |
+| Data table | `src/components/dashboard/dashboard-table.tsx` |
+| Chart component | `src/components/dashboard/chart-card.tsx` |
+| Custom icon | `src/components/icons/analytics-icon.tsx` |
+| Layout with sidebar | `src/components/layouts/dashboard-layout.tsx` |
+| Navigation item | `src/components/nav-item.tsx` |
+| Dropdown menu | `src/components/profile-menu.tsx` |
+| Landing section | `src/components/landing/hero.tsx` |
+| Dialog component | `src/components/users/delete-user-dialog.tsx` |
+| Drawer component | `src/components/tasks/edit-task-drawer.tsx` |
+| Form component | `src/components/settings/profile-form.tsx` |
 
 ## JIT hints
 
@@ -130,22 +151,27 @@ rg -n "<Sidebar" src
 
 # Find components using applyStyles
 rg -n "applyStyles" src/components
+
+# Find all dialogs
+rg -n "Dialog" src/components --glob "*.tsx"
 ```
 
 ## Common gotchas
 
-- **Always use `@/` imports** — no relative imports allowed.
-- **Prefer `@mui/icons-material`** — only create custom icons when needed.
-- **Use CSS variables** (`var(--color-*)`) for colors that need dark mode support.
-- **Never use `theme.palette.mode`** — use `theme.applyStyles('dark', {...})` instead.
-- **File naming**: `kebab-case.tsx` only (e.g., `nav-item.tsx`, not `NavItem.tsx`).
+- **Always use `@/` imports** — no relative imports
+- **Prefer `@mui/icons-material`** — only create custom icons when needed
+- **Use CSS variables** (`var(--color-*)`) for colors that need dark mode support
+- **Never use `theme.palette.mode`** — use `theme.applyStyles('dark', {...})`
+- **File naming**: `kebab-case.tsx` only
+- **Grid v7**: Use `size` prop, not `item`/`xs`/`md`
 
 ## Pre-PR checks
 
 ```bash
-# Check for MUI anti-patterns
+# Check for anti-patterns
 rg -n "theme\.palette\.mode" src/components
 rg -n "from '\\.{1,2}/" src/components
+rg -n "Grid item" src/components
 
 # Then run full checks
 npm run lint && npm run prettier && npm run build

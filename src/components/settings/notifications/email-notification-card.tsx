@@ -67,4 +67,3 @@ export default function EmailNotificationCard({ title, description, checked, onC
     </Box>
   )
 }
-

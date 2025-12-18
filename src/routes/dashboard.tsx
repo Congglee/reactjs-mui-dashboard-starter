@@ -15,6 +15,7 @@ import {
   mockSessionsC,
   mockUsersSpark
 } from '@/constants/mock-data'
+import { useGetPostList } from '@/queries/use-posts'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
@@ -29,6 +30,11 @@ export default function Dashboard() {
 
   const sessionsDays = Array.from({ length: 26 }, (_, i) => i + 5)
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+
+  const { data } = useGetPostList()
+  const posts = data?.data ?? []
+
+  console.log('Post List: ', posts)
 
   return (
     <Box>

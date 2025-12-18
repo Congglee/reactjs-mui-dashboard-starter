@@ -1,32 +1,36 @@
 ## Package identity
 
-- **Purpose**: React Context providers for global state management.
-- **Tech**: React 19 Context API + TypeScript.
+- **Purpose**: React Context providers for client-side global state
+- **Tech**: React 19 Context API + TypeScript
 
 ## Current providers
 
-| Provider      | File               | Purpose                                                |
-| ------------- | ------------------ | ------------------------------------------------------ |
+| Provider | File | Purpose |
+|----------|------|---------|
 | `AppProvider` | `app-provider.tsx` | Sidebar open/close state with localStorage persistence |
 
 ## Provider hierarchy (in main.tsx)
 
 ```tsx
 <BrowserRouter>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <AppProvider>
-        <App />
-      </AppProvider>
-    </LocalizationProvider>
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ErrorBoundary>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <AppProvider>
+            <App />
+          </AppProvider>
+        </LocalizationProvider>
+      </ErrorBoundary>
+    </ThemeProvider>
+  </QueryClientProvider>
 </BrowserRouter>
 ```
 
 ## Patterns & conventions
 
-### Provider structure (example)
+### Provider structure (REQUIRED pattern)
 
 ```tsx
 // ✅ DO: Follow this pattern (see src/providers/app-provider.tsx)
@@ -60,18 +64,22 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('sidebar', JSON.stringify(open))
   }, [])
 
-  return <AppContext.Provider value={{ sidebarOpen, setSidebarOpen }}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider value={{ sidebarOpen, setSidebarOpen }}>
+      {children}
+    </AppContext.Provider>
+  )
 }
 ```
 
 ### Adding a new provider
 
-1. Create provider file in `src/providers/new-provider.tsx` (kebab-case)
-2. Follow the pattern above:
-   - Define `interface XxxContextType`
-   - Create context with `createContext<XxxContextType>`
-   - Export `useXxxContext` hook
-   - Export default `XxxProvider` component
+1. Create file: `src/providers/new-provider.tsx` (kebab-case)
+2. Follow the pattern:
+   - `interface XxxContextType` — define context shape
+   - `const XxxContext = createContext<XxxContextType>(...)` — create context
+   - `export const useXxxContext = () => ...` — export hook
+   - `export default function XxxProvider` — export provider
 3. Wrap in `src/main.tsx`:
    ```tsx
    <AppProvider>
@@ -84,7 +92,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
 ### Using providers in components
 
 ```tsx
-// ✅ DO: Use the exported hook (see src/components/sidebar.tsx)
+// ✅ DO: Use the exported hook
 import { useAppContext } from '@/providers/app-provider'
 
 function Sidebar() {
@@ -93,16 +101,14 @@ function Sidebar() {
 }
 ```
 
-## Future plans
+## State management guidelines
 
-- `src/queries/` - TanStack Query hooks for server state
-- `src/apis/` - Axios API clients
-
-When TanStack Query is added:
-
-- Use `QueryClientProvider` in `main.tsx`
-- Server state goes in `queries/`, not `providers/`
-- Keep `providers/` for client-only state
+| State type | Where to put it |
+|------------|-----------------|
+| Server data (API) | `src/queries/` (TanStack Query) |
+| Client-only global | `src/providers/` (Context) |
+| Component-local | `useState` / `useReducer` |
+| Form state | Local state or form library |
 
 ## JIT hints
 
@@ -115,14 +121,18 @@ rg -n "export const use" src/providers
 
 # Find provider usage
 rg -n "useAppContext" src
+
+# Find provider wrapping in main.tsx
+rg -n "Provider" src/main.tsx
 ```
 
 ## Common gotchas
 
-- **Export both**: Always export the hook (`useXxxContext`) AND the provider (`XxxProvider`).
-- **Type the context**: Always define `XxxContextType` interface.
-- **Default values**: Provide sensible defaults in `createContext()` for type safety.
-- **localStorage**: Use `globalThis?.localStorage` for SSR safety.
+- **Export both**: Always export hook (`useXxxContext`) AND provider (`XxxProvider`)
+- **Type the context**: Always define `XxxContextType` interface
+- **Default values**: Provide sensible defaults in `createContext()` for type safety
+- **localStorage**: Use `globalThis?.localStorage` for SSR safety
+- **Server state**: Use TanStack Query for API data, not Context
 
 ## Pre-PR checks
 

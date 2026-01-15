@@ -28,6 +28,13 @@ components/
 
 ## Patterns & conventions
 
+### Naming conventions (REQUIRED)
+
+- **UI handlers**: use `handle*` prefix for in-component logic/event handlers (example: `src/components/theme-menu.tsx`).
+- **Callback props**: always `on*` and avoid generic names like `onClose` when multiple dialogs/menus exist (example: `src/components/users/new-user-dialog.tsx` uses `onNewUserDialogClose`).
+- **State props**: be explicit (example: `newUserDialogOpen`, not `open`).
+- **Forms**: submit handler must be named `onSubmit` (avoid `handleSubmit`).
+
 ### Component structure
 
 ```tsx

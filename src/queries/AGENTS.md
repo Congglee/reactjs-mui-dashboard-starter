@@ -15,7 +15,7 @@
 
 ```ts
 // ✅ DO: Follow this pattern (see src/queries/use-posts.ts)
-import postApiRequest from '@/apis/post.api'
+import postApiRequest from '@/apis/posts'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetPostList = () => {
@@ -25,7 +25,7 @@ export const useGetPostList = () => {
   })
 }
 
-// With parameters
+// With parameters (only if the API client exposes `getPost`)
 export const useGetPost = (id: number) => {
   return useQuery({
     queryKey: ['posts', id],
@@ -40,7 +40,7 @@ export const useGetPost = (id: number) => {
 ```ts
 // ✅ DO: Mutation pattern
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import postApiRequest from '@/apis/post.api'
+import postApiRequest from '@/apis/posts'
 import type { CreatePostBody } from '@/schemas/post.schema'
 
 export const useCreatePost = () => {
@@ -157,11 +157,10 @@ export const useDeleteResource = () => {
 
 ```tsx
 // ✅ DO: Use hooks in components
-import { useGetPostList, useCreatePost } from '@/queries/use-posts'
+import { useGetPostList } from '@/queries/use-posts'
 
 function PostList() {
   const { data: posts, isLoading, error } = useGetPostList()
-  const createPost = useCreatePost()
 
   if (isLoading) return <Skeleton />
   if (error) return <Error error={error} />
@@ -169,9 +168,6 @@ function PostList() {
   return (
     <>
       {posts?.map(post => <PostItem key={post.id} post={post} />)}
-      <Button onClick={() => createPost.mutate({ title: 'New', body: 'Content' })}>
-        Add Post
-      </Button>
     </>
   )
 }

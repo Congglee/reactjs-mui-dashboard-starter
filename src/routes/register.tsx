@@ -38,7 +38,7 @@ export default function Register() {
     })
   }
 
-  const validateInputs = () => {
+  const handleValidateInputs = () => {
     const name = document.getElementById('name') as HTMLInputElement
     const email = document.getElementById('email') as HTMLInputElement
     const password = document.getElementById('password') as HTMLInputElement
@@ -146,7 +146,7 @@ export default function Register() {
 
         <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
 
-        <Button type='submit' fullWidth variant='contained' onClick={validateInputs}>
+        <Button type='submit' fullWidth variant='contained' onClick={handleValidateInputs}>
           Sign up
         </Button>
       </Box>

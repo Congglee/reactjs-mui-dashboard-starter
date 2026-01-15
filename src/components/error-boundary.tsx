@@ -70,7 +70,6 @@ export default class ErrorBoundary extends Component<Props, State> {
                 boxShadow: (theme) => `0 20px 40px -10px ${alpha(theme.palette.error.main, 0.1)}`
               }}
             >
-              {/* Icon Wrapper */}
               <Box
                 sx={{
                   display: 'inline-flex',
@@ -94,7 +93,6 @@ export default class ErrorBoundary extends Component<Props, State> {
                 return to the dashboard.
               </Typography>
 
-              {/* Error Details (Optional - good for dev/debugging) */}
               {this.state.error && (
                 <Box
                   sx={{

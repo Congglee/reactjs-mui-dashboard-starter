@@ -7,27 +7,20 @@
 
 | File          | Endpoints                                        |
 | ------------- | ------------------------------------------------ |
-| `post.api.ts` | `getPostList()` — GET posts from JSONPlaceholder |
+| `posts.ts` | `getPostList()` — GET posts from JSONPlaceholder |
 
 ## Patterns & conventions
 
 ### API client structure (REQUIRED pattern)
 
 ```ts
-// ✅ DO: Follow this pattern (see src/apis/post.api.ts)
+// ✅ DO: Follow this pattern (see src/apis/posts.ts)
 import http from '@/lib/http'
 import type { PostListResType } from '@/schemas/post.schema'
 
 const postApiRequest = {
-  getPostList: () => http.get<PostListResType>('https://jsonplaceholder.typicode.com/posts'),
-
-  getPost: (id: number) => http.get<PostType>(`/posts/${id}`),
-
-  createPost: (body: CreatePostBody) => http.post<PostType>('/posts', body),
-
-  updatePost: (id: number, body: UpdatePostBody) => http.put<PostType>(`/posts/${id}`, body),
-
-  deletePost: (id: number) => http.delete(`/posts/${id}`)
+  // Note: demo uses an absolute URL; for real APIs prefer relative paths + env baseUrl.
+  getPostList: () => http.get<PostListResType>('https://jsonplaceholder.typicode.com/posts')
 }
 
 export default postApiRequest
@@ -37,7 +30,7 @@ export default postApiRequest
 
 | Pattern     | Example                                                     |
 | ----------- | ----------------------------------------------------------- |
-| File name   | `{resource}.api.ts` → `post.api.ts`, `user.api.ts`          |
+| File name   | `{resource}.ts` → `posts.ts`, `users.ts`                    |
 | Export name | `{resource}ApiRequest` → `postApiRequest`, `userApiRequest` |
 | GET list    | `get{Resource}List` → `getPostList`, `getUserList`          |
 | GET single  | `get{Resource}` → `getPost`, `getUser`                      |
@@ -48,7 +41,7 @@ export default postApiRequest
 ### Adding a new API client
 
 1. Create schema in `src/schemas/resource.schema.ts` (defines types)
-2. Create API client in `src/apis/resource.api.ts`:
+2. Create API client in `src/apis/resources.ts`:
 
 ```ts
 import http from '@/lib/http'
@@ -114,13 +107,13 @@ interface Post { ... }  // Put this in schemas/
 rg -n "const.*ApiRequest" src/apis
 
 # Find all endpoints in an API client
-rg -n "http\.(get|post|put|delete)" src/apis/post.api.ts
+rg -n "http\.(get|post|put|delete)" src/apis/posts.ts
 
 # Find usage of an API client
 rg -n "postApiRequest" src
 
-# Find all API files
-fd ".api.ts" src/apis
+# List API modules tracked by git
+git ls-files "src/apis/*.ts"
 ```
 
 ## Common gotchas
@@ -128,7 +121,7 @@ fd ".api.ts" src/apis
 - **Types from schemas**: Import types from `src/schemas/`, don't define in API files
 - **Use http instance**: Always use `http` from `@/lib/http`, not raw Axios
 - **Return type**: Generic type in `http.get<T>()` should match schema type
-- **File naming**: `{resource}.api.ts` in kebab-case
+- **File naming**: `{resource}.ts` in kebab-case
 
 ## Pre-PR checks
 

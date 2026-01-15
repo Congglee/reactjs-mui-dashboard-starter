@@ -6,10 +6,15 @@ interface EmailNotificationCardProps {
   title: string
   description: string
   checked: boolean
-  onChange: (checked: boolean) => void
+  onEmailNotificationChange: (checked: boolean) => void
 }
 
-export default function EmailNotificationCard({ title, description, checked, onChange }: EmailNotificationCardProps) {
+export default function EmailNotificationCard({
+  title,
+  description,
+  checked,
+  onEmailNotificationChange
+}: EmailNotificationCardProps) {
   return (
     <Box
       sx={{
@@ -47,7 +52,7 @@ export default function EmailNotificationCard({ title, description, checked, onC
       </Box>
       <Switch
         checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
+        onChange={(e) => onEmailNotificationChange(e.target.checked)}
         sx={{
           '& .MuiSwitch-switchBase': {
             '&.Mui-checked': {

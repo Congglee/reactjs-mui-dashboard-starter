@@ -32,11 +32,14 @@ export type PostType = z.infer<typeof PostSchema>
 export const PostListRes = z.array(PostSchema)
 export type PostListResType = z.infer<typeof PostListRes>
 
-// 4. Define request body schemas (for mutations)
+// Note: In this repo, `post.schema.ts` currently exports the base schema + list response only.
+// Add request body schemas below only when you introduce mutations for this resource.
+
+// 4. Optional: define request body schemas (for mutations) when needed
 export const CreatePostBody = PostSchema.omit({ id: true })
 export type CreatePostBodyType = z.infer<typeof CreatePostBody>
 
-export const UpdatePostBody = PostSchema.partial().omit({ id: true })
+export const UpdatePostBody = CreatePostBody.partial()
 export type UpdatePostBodyType = z.infer<typeof UpdatePostBody>
 ```
 
@@ -163,7 +166,7 @@ rg -n "export type" src/schemas
 rg -n "PostSchema" src
 
 # Find all schema files
-fd ".schema.ts" src/schemas
+git ls-files "src/schemas/*.schema.ts"
 ```
 
 ## Common gotchas

@@ -18,6 +18,16 @@
 | `/settings/display` | `settings/display.tsx` | `SettingsLayout` |
 | `/login` | `login.tsx` | `AuthLayout` |
 | `/register` | `register.tsx` | `AuthLayout` |
+| `*` | `not-found.tsx` | `MainLayout` |
+
+## Routes declared in `path.ts` but not wired yet
+
+`src/constants/path.ts` also defines:
+
+- `path.forgotPassword` (`/forgot-password`)
+- `path.resetPassword` (`/reset-password`)
+
+If you add pages for these, wire them in `src/App.tsx` under `AuthLayout` (or another suitable layout).
 
 ## Route configuration
 
@@ -113,7 +123,8 @@ MainLayout (Header/Footer for public pages)
 rg -n "export default function" src/routes
 
 # Find route definitions
-rg -n "Route path=" src/App.tsx
+rg -n "<Route" src/App.tsx
+rg -n "path={path\." src/App.tsx
 
 # Find path constants
 rg -n ":" src/constants/path.ts

@@ -147,7 +147,7 @@ rg -n "from '@/lib/http'" src
 rg -n "from '@/lib/query-client'" src
 
 # Find all lib files
-fd ".ts" src/lib
+git ls-files "src/lib/*.ts"
 ```
 
 ## Common gotchas

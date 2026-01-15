@@ -22,7 +22,7 @@ export default function Header() {
     setMobileMenuOpen(newOpen)
   }
 
-  const scrollToSection = (href: string) => {
+  const handleScrollToSection = (href: string) => {
     setMobileMenuOpen(false)
     const element = document.querySelector(href)
     if (element) {
@@ -64,16 +64,16 @@ export default function Header() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0, gap: 2 }}>
             <Logo variant='header' />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
-              <Button variant='text' color='info' size='small' onClick={() => scrollToSection('#features')}>
+              <Button variant='text' color='info' size='small' onClick={() => handleScrollToSection('#features')}>
                 Features
               </Button>
-              <Button variant='text' color='info' size='small' onClick={() => scrollToSection('#testimonials')}>
+              <Button variant='text' color='info' size='small' onClick={() => handleScrollToSection('#testimonials')}>
                 Testimonials
               </Button>
-              <Button variant='text' color='info' size='small' onClick={() => scrollToSection('#highlights')}>
+              <Button variant='text' color='info' size='small' onClick={() => handleScrollToSection('#highlights')}>
                 Highlights
               </Button>
-              <Button variant='text' color='info' size='small' onClick={() => scrollToSection('#pricing')}>
+              <Button variant='text' color='info' size='small' onClick={() => handleScrollToSection('#pricing')}>
                 Pricing
               </Button>
               <Button
@@ -81,7 +81,7 @@ export default function Header() {
                 color='info'
                 size='small'
                 sx={{ minWidth: 0 }}
-                onClick={() => scrollToSection('#faq')}
+                onClick={() => handleScrollToSection('#faq')}
               >
                 FAQ
               </Button>

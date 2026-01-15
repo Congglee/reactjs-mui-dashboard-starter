@@ -90,7 +90,7 @@ export const constants = {
 ### Type safety for env vars
 
 ```ts
-// ✅ DO: Declare env types in vite-env.d.ts
+// ✅ Optional: declare env types in a *.d.ts file (create one if needed)
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
@@ -125,17 +125,12 @@ const api = import.meta.env.VITE_APP_API_URL  // Hard to mock/test
 |----------|----------|-------------|
 | `VITE_APP_API_URL` | Yes | Backend API base URL |
 
-## .env files
+## .env files (Vite)
 
 ```bash
-# .env — Default values (committed)
-VITE_APP_API_URL=http://localhost:3000/api
-
-# .env.local — Local overrides (gitignored)
-VITE_APP_API_URL=https://dev-api.example.com
-
-# .env.production — Production values (may be set in CI)
-VITE_APP_API_URL=https://api.example.com
+# This repo includes an example at: src/.env.example
+# Copy it to the project root as .env.local (gitignored) and fill values:
+VITE_APP_API_URL="http://localhost:3000"
 ```
 
 ## JIT hints
@@ -148,14 +143,14 @@ rg -n "import.meta.env" src
 rg -n "from '@/config/" src
 
 # Find all config files
-fd ".ts" src/config
+git ls-files "src/config/*.ts"
 ```
 
 ## Common gotchas
 
 - **VITE_ prefix required**: Client-side vars must start with `VITE_`
 - **Restart dev server**: Changes to `.env` require server restart
-- **Type safety**: Declare types in `vite-env.d.ts`
+- **Type safety**: If you access new env vars, add TS types via `ImportMetaEnv` augmentation
 - **Centralize access**: Import from `@/config/`, not `import.meta.env` directly
 - **Don't commit secrets**: `.env.local` should be gitignored
 

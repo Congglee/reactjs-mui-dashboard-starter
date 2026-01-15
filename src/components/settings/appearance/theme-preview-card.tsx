@@ -4,15 +4,15 @@ import Typography from '@mui/material/Typography'
 interface ThemePreviewCardProps {
   variant: 'light' | 'dark'
   selected: boolean
-  onClick: () => void
+  onThemePreviewToggle: () => void
 }
 
-export default function ThemePreviewCard({ variant, selected, onClick }: ThemePreviewCardProps) {
+export default function ThemePreviewCard({ variant, selected, onThemePreviewToggle }: ThemePreviewCardProps) {
   const isLight = variant === 'light'
 
   return (
     <Box
-      onClick={onClick}
+      onClick={onThemePreviewToggle}
       sx={{
         display: 'flex',
         alignItems: 'center',

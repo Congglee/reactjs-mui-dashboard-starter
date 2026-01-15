@@ -165,25 +165,25 @@ export default function Notifications() {
             title='Communication emails'
             description='Receive emails about your account activity.'
             checked={formData.communicationEmails}
-            onChange={(checked) => setFormData((prev) => ({ ...prev, communicationEmails: checked }))}
+            onEmailNotificationChange={(checked) => setFormData((prev) => ({ ...prev, communicationEmails: checked }))}
           />
           <EmailNotificationCard
             title='Marketing emails'
             description='Receive emails about new products, features, and more.'
             checked={formData.marketingEmails}
-            onChange={(checked) => setFormData((prev) => ({ ...prev, marketingEmails: checked }))}
+            onEmailNotificationChange={(checked) => setFormData((prev) => ({ ...prev, marketingEmails: checked }))}
           />
           <EmailNotificationCard
             title='Social emails'
             description='Receive emails for friend requests, follows, and more.'
             checked={formData.socialEmails}
-            onChange={(checked) => setFormData((prev) => ({ ...prev, socialEmails: checked }))}
+            onEmailNotificationChange={(checked) => setFormData((prev) => ({ ...prev, socialEmails: checked }))}
           />
           <EmailNotificationCard
             title='Security emails'
             description='Receive emails about your account activity and security.'
             checked={formData.securityEmails}
-            onChange={(checked) => setFormData((prev) => ({ ...prev, securityEmails: checked }))}
+            onEmailNotificationChange={(checked) => setFormData((prev) => ({ ...prev, securityEmails: checked }))}
           />
         </Box>
       </Box>

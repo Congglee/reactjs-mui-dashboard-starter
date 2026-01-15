@@ -23,7 +23,7 @@ export default function ForgotPassword() {
     setEmailErrorMessage('')
   }
 
-  const validateInputs = () => {
+  const handleValidateInputs = () => {
     const email = document.getElementById('reset-email') as HTMLInputElement
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
@@ -37,10 +37,10 @@ export default function ForgotPassword() {
     return true
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
+  const onSubmit = (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault()
 
-    if (!validateInputs()) {
+    if (!handleValidateInputs()) {
       return
     }
 
@@ -71,7 +71,7 @@ export default function ForgotPassword() {
         slotProps={{
           paper: {
             component: 'form',
-            onSubmit: handleSubmit,
+            onSubmit,
             sx: { backgroundImage: 'none' }
           }
         }}

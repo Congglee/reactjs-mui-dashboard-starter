@@ -169,12 +169,12 @@ export default function Appearance() {
           <ThemePreviewCard
             variant='light'
             selected={formData.theme === 'light'}
-            onClick={() => setFormData((prev) => ({ ...prev, theme: 'light' }))}
+            onThemePreviewToggle={() => setFormData((prev) => ({ ...prev, theme: 'light' }))}
           />
           <ThemePreviewCard
             variant='dark'
             selected={formData.theme === 'dark'}
-            onClick={() => setFormData((prev) => ({ ...prev, theme: 'dark' }))}
+            onThemePreviewToggle={() => setFormData((prev) => ({ ...prev, theme: 'dark' }))}
           />
         </Box>
       </Box>

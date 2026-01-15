@@ -1,7 +1,7 @@
 ## Package identity
 
 - **Purpose**: Main source folder containing all React app code
-- **Tech**: React 19 + TypeScript 5.9 (strict) + Vite 7 + Material UI v7 + TanStack Query
+- **Tech**: React 19 + TypeScript 5.9 (strict) + Vite 7 + Material UI v7 + React Router v7 + TanStack Query v5
 
 ## Key files
 
@@ -40,7 +40,7 @@ src/
 // ✅ DO: Absolute imports with @/ alias
 import Sidebar from '@/components/sidebar'
 import { useAppContext } from '@/providers/app-provider'
-import postApiRequest from '@/apis/post.api'
+import postApiRequest from '@/apis/posts'
 
 // ❌ DON'T: Relative imports
 import Sidebar from '../components/sidebar'
@@ -81,7 +81,7 @@ const bg = theme.palette.mode === 'dark' ? '#121621' : '#f5f6fa'
 | Components/pages | `kebab-case.tsx` | `metric-card.tsx`, `dashboard-layout.tsx` |
 | Types | `*.type.ts` | `mock-data.type.ts` |
 | Schemas | `*.schema.ts` | `post.schema.ts` |
-| API clients | `*.api.ts` | `post.api.ts` |
+| API clients | `{resource}.ts` | `posts.ts` |
 | Query hooks | `use-*.ts` | `use-posts.ts` |
 | Constants | `kebab-case.ts` | `path.ts`, `mock-data.ts` |
 
@@ -114,7 +114,8 @@ rg -n "export" src/theme.ts
 rg -n "var\(--color-" src
 
 # Find all route definitions
-rg -n "Route path=" src/App.tsx
+rg -n "<Route" src/App.tsx
+rg -n "path={path\." src/App.tsx
 
 # Find all providers in main.tsx
 rg -n "Provider" src/main.tsx

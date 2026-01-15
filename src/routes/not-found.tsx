@@ -36,10 +36,9 @@ export default function NotFound() {
         position: 'relative',
         bgcolor: 'background.default',
         zIndex: 1,
-        overflowX: 'hidden' // Prevent horizontal scrollbar from animations
+        overflowX: 'hidden'
       }}
     >
-      {/* Background Wrapper - Fixed to viewport */}
       <Box
         sx={{
           position: 'fixed',
@@ -89,7 +88,7 @@ export default function NotFound() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          py: 8 // Add padding to ensure content isn't touching edges on small screens
+          py: 8
         }}
       >
         <Stack alignItems='center' spacing={4} textAlign='center'>

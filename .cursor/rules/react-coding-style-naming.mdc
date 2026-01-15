@@ -1,0 +1,152 @@
+---
+globs: *.ts,*.tsx
+description: Enforce consistent React function/handler naming, state+callback prop naming, and form onSubmit convention across the project
+---
+
+# React Coding Style — Naming & Props Convention (REQUIRED)
+
+This rule standardizes **how functions are named in React components**, **how state/callback props are named when passed to child components**, and **how `onSubmit` is named for forms**. When creating or modifying code, the Cursor Agent must apply these conventions to keep the entire project consistent.
+
+## 1) Function naming in React components
+
+### 1.1 Handlers for UI events / in-component logic — required `handle` prefix
+
+- Any function that handles in-component logic (set state, array/object processing, mouse/keyboard/pointer events, open/close menu/dialog, toggle flags, select options, validate inputs, etc.) **must** be named using the `handle...` convention.
+
+#### A) “Special” actions (reversed order) — `handle` + `dataModel` + `action`
+
+If `action` is one of:
+
+- `click`, `change`, `open`, `close`, `toggle`, `select`
+
+Then name it:
+
+- **`handle` + `dataModel` + `action`**
+
+Correct examples:
+
+```ts
+const handleThemeMenuOpen = (event: React.MouseEvent<HTMLElement>) => {}
+const handleThemeMenuClose = () => {}
+const handleThemeMenuSelect = (selectedMode: 'light' | 'dark' | 'system') => {}
+
+const handlePasswordVisibilityToggle = () => {}
+const handleConfirmPasswordVisibilityToggle = () => {}
+```
+
+Incorrect examples:
+
+```ts
+// ❌ action comes before dataModel
+const handleOpenThemeMenu = () => {}
+// ❌ missing handle prefix for UI logic
+const togglePasswordVisibility = () => {}
+```
+
+#### B) All other actions — `handle` + `action` + `dataModel`
+
+For other actions (e.g. `wheel`, `pointerDown`, `pointerMove`, `validate`, `filter`, `sort`, `reset`, ...), name it:
+
+- **`handle` + `action` + `dataModel`**
+
+Examples:
+
+```ts
+const handleWheel = (event: WheelEvent) => {}
+const handlePointerDown = (event: PointerEvent) => {}
+const handlePointerMove = (event: PointerEvent) => {}
+const handleValidateInputs = () => {}
+```
+
+### 1.2 Functions that call APIs (query/mutation) — DO NOT use `handle`
+
+- Functions that perform API calls (query or mutation) **must not** use the `handle` prefix.
+- Name them using **verb + dataModel** (or verb + resource), e.g.:
+
+```ts
+const addTask = async () => {}
+const updateTask = async () => {}
+const deleteTask = async () => {}
+const removeTask = async () => {}
+```
+
+Incorrect examples:
+
+```ts
+// ❌ do not use handle for API calls
+const handleAddTask = async () => {}
+const handleDeleteUser = async () => {}
+```
+
+## 2) Prop naming when passing state + callbacks to child components
+
+### 2.1 State props — must be explicit (not too generic)
+
+- Do **not** use overly generic names like `open`, `value`, `data` (unless the context is extremely clear and unambiguous).
+- Prefer names that clearly describe the UI/feature intent.
+
+Correct example:
+
+```ts
+type NewUserDialogProps = {
+  newUserDialogOpen: boolean
+}
+```
+
+Incorrect example:
+
+```ts
+type NewUserDialogProps = {
+  open: boolean // ❌ too generic, hard to read in larger components
+}
+```
+
+### 2.2 Callback props — always prefix with `on`
+
+- Any callback prop passed to a child component **must** start with `on`.
+- Recommended pattern: **`on` + `dataModel` + `action`**
+
+Correct example:
+
+```ts
+type EditUserDialogProps = {
+  editUserDialogOpen: boolean
+  onEditUserDialogClose: () => void
+}
+```
+
+Incorrect examples:
+
+```ts
+type EditUserDialogProps = {
+  onClose: () => void // ❌ too generic when there are multiple dialogs/menus
+  handleClose: () => void // ❌ callback props must not use handle prefix
+}
+```
+
+## 3) Form submit naming — always use `onSubmit`
+
+- If a function handles a form submit event: **always name it `onSubmit`**.
+- Pass it directly to the form’s `onSubmit` prop (no renaming, no extra prefixes/suffixes).
+
+Correct example:
+
+```tsx
+const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {}
+
+return <Box component='form' onSubmit={onSubmit} />
+```
+
+Incorrect example:
+
+```tsx
+const handleSubmit = () => {} // ❌ do not use handleSubmit
+return <form onSubmit={handleSubmit} />
+```
+
+Note: If a single file needs multiple form submit handlers, split into child components so each component can keep the `onSubmit` convention without naming conflicts.
+
+## 4) Enforcement (required when editing code)
+
+- When creating new React components/functions in this project: **must** follow the rules above.
+- When touching files that do not match these conventions: if the change is small and safe, prefer refactoring to match the conventions within the same task.

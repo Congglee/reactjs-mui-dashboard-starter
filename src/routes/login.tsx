@@ -31,7 +31,7 @@ export default function Login() {
     console.log('Login form submitted:', { email: data.get('email'), password: data.get('password') })
   }
 
-  const validateInputs = () => {
+  const handleValidateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement
     const password = document.getElementById('password') as HTMLInputElement
 
@@ -114,7 +114,7 @@ export default function Login() {
 
         <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
 
-        <Button type='submit' fullWidth variant='contained' onClick={validateInputs}>
+        <Button type='submit' fullWidth variant='contained' onClick={handleValidateInputs}>
           Sign in
         </Button>
 

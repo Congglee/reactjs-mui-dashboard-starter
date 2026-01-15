@@ -5,8 +5,8 @@
 
 ## Current providers
 
-| Provider | File | Purpose |
-|----------|------|---------|
+| Provider      | File               | Purpose                                                |
+| ------------- | ------------------ | ------------------------------------------------------ |
 | `AppProvider` | `app-provider.tsx` | Sidebar open/close state with localStorage persistence |
 
 ## Provider hierarchy (in main.tsx)
@@ -40,7 +40,7 @@ import type { ReactNode } from 'react'
 // 1. Define context type
 interface AppContextType {
   sidebarOpen: boolean
-  setSidebarOpen: (open: boolean) => void
+  setSidebarOpen: (sidebarOpen: boolean) => void
 }
 
 // 2. Create context with default values
@@ -55,20 +55,27 @@ export const useAppContext = () => {
   return context
 }
 
+const getInitialSidebarOpen = () => {
+  try {
+    const stored = globalThis?.localStorage?.getItem('sidebar')
+    if (stored == null) return true
+    const parsed = JSON.parse(stored)
+    return typeof parsed === 'boolean' ? parsed : true
+  } catch {
+    return true
+  }
+}
+
 // 4. Export provider component
 export default function AppProvider({ children }: { children: ReactNode }) {
-  const [sidebarOpen, setSidebarOpenState] = useState<boolean>(() => getInitialState())
+  const [sidebarOpen, setSidebarOpenState] = useState<boolean>(() => getInitialSidebarOpen())
 
   const setSidebarOpen = useCallback((open: boolean) => {
     setSidebarOpenState(open)
-    localStorage.setItem('sidebar', JSON.stringify(open))
+    globalThis?.localStorage?.setItem('sidebar', JSON.stringify(open))
   }, [])
 
-  return (
-    <AppContext.Provider value={{ sidebarOpen, setSidebarOpen }}>
-      {children}
-    </AppContext.Provider>
-  )
+  return <AppContext.Provider value={{ sidebarOpen, setSidebarOpen }}>{children}</AppContext.Provider>
 }
 ```
 
@@ -103,12 +110,12 @@ function Sidebar() {
 
 ## State management guidelines
 
-| State type | Where to put it |
-|------------|-----------------|
-| Server data (API) | `src/queries/` (TanStack Query) |
-| Client-only global | `src/providers/` (Context) |
-| Component-local | `useState` / `useReducer` |
-| Form state | Local state or form library |
+| State type         | Where to put it                 |
+| ------------------ | ------------------------------- |
+| Server data (API)  | `src/queries/` (TanStack Query) |
+| Client-only global | `src/providers/` (Context)      |
+| Component-local    | `useState` / `useReducer`       |
+| Form state         | Local state or form library     |
 
 ## JIT hints
 

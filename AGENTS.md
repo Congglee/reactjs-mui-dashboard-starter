@@ -1,8 +1,9 @@
 ## Project snapshot
 
 - **Repo type**: Single project (Vite React app)
-- **Stack**: React 19, TypeScript 5.9 (strict), Vite 7, Material UI v7 (+ MUI X), React Router v7, TanStack Query, Axios, Zod
+- **Stack**: React 19, TypeScript 5.9 (strict), Vite 7, Material UI v7 (+ MUI X), React Router v7, TanStack Query v5, Axios, Zod v4
 - **State**: Context API (`src/providers/`) for client state, TanStack Query (`src/queries/`) for server state
+- **Build notes**: React Compiler is enabled via `babel-plugin-react-compiler` (see `vite.config.ts`)
 
 ## Root setup commands
 
@@ -21,7 +22,9 @@
 - **Cursor rules are mandatory**:
   - `.cursor/rules/material-ui-v7.mdc` — MUI v7 UI policy
   - `.cursor/rules/imports-and-naming.mdc` — Import & naming policy
+  - `.cursor/rules/react-coding-style-naming.mdc` — Naming/props conventions (`handle*`, `on*`, `onSubmit`)
 - **Absolute imports only**: `@/…` for internal modules (no `./` / `../`)
+  - Alias is configured in `tsconfig.app.json` and `vite.config.ts` (`@` → `src/`)
 - **kebab-case filenames**: `some-component.tsx`, `user-settings.tsx`
 - **Material UI only**: No other UI libraries
 - **Tree-shaking imports**:
@@ -30,6 +33,7 @@
 - **Dark mode styling**:
   - ✅ `theme.applyStyles('dark', {...})` or CSS variables `var(--color-*)`
   - ❌ Never branch on `theme.palette.mode`
+- **Router imports**: React Router v7 uses `react-router` (not `react-router-dom`) in this repo
 
 ## Security & secrets
 
@@ -81,6 +85,7 @@ rg -n "export const.*Schema" src/schemas
 rg -n "theme\.palette\.mode" src        # No mode branching
 rg -n "from '\\.{1,2}/" src             # No relative imports
 rg -n "from '@mui/material'" src        # No barrel imports
+rg -n "handleSubmit" src                # Prefer onSubmit naming
 ```
 
 ## Definition of Done (before PR)

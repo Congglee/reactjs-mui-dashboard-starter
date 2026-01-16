@@ -65,3 +65,41 @@ export interface Task {
   updatedAt?: string
   dueDate?: string
 }
+
+export interface TrafficDataPoint {
+  day: string
+  clicks: number
+  visitors: number
+}
+
+export interface AnalyticsMetric {
+  id: string
+  label: string
+  value: string | number
+  trend: {
+    value: string
+    direction: 'up' | 'down' | 'neutral'
+    isPositive: boolean
+  }
+  icon: 'chart' | 'users' | 'bounce' | 'clock'
+}
+
+export interface ReferrerData {
+  id: string
+  source: string
+  visits: number
+  color: string
+}
+
+export interface DeviceData {
+  id: string
+  device: string
+  percentage: number
+  color: string
+}
+
+export interface AnalyticsOverview {
+  title: string
+  subtitle: string
+  data: TrafficDataPoint[]
+}

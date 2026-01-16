@@ -1,4 +1,15 @@
-import type { TreeNode, CountryData, Task, Assignee, User } from '@/types/mock-data.type'
+import type {
+  TreeNode,
+  CountryData,
+  Task,
+  Assignee,
+  User,
+  TrafficDataPoint,
+  AnalyticsMetric,
+  ReferrerData,
+  DeviceData,
+  AnalyticsOverview
+} from '@/types/mock-data.type'
 
 export const mockUserRoles = ['Admin', 'Manager', 'Cashier', 'Superadmin'] as const
 
@@ -204,7 +215,6 @@ export const mockTasks: Task[] = [
     updatedAt: '2024-01-23T08:15:00Z',
     dueDate: '2024-01-30T00:00:00Z'
   },
-  // Additional tasks to cover more scenarios
   {
     id: 'TASK-1234',
     title: 'Implement user authentication system with OAuth2 support.',
@@ -322,6 +332,199 @@ export const mockTasks: Task[] = [
     assignee: undefined,
     createdAt: '2024-01-19T13:00:00Z',
     updatedAt: '2024-01-19T13:00:00Z'
+  }
+]
+
+export const mockTrafficData: TrafficDataPoint[] = [
+  { day: 'Mon', clicks: 780, visitors: 520 },
+  { day: 'Tue', clicks: 650, visitors: 480 },
+  { day: 'Wed', clicks: 420, visitors: 280 },
+  { day: 'Thu', clicks: 580, visitors: 380 },
+  { day: 'Fri', clicks: 720, visitors: 450 },
+  { day: 'Sat', clicks: 350, visitors: 220 },
+  { day: 'Sun', clicks: 980, visitors: 650 }
+]
+
+export const mockAnalyticsOverview: AnalyticsOverview = {
+  title: 'Traffic Overview',
+  subtitle: 'Weekly clicks and unique visitors',
+  data: mockTrafficData
+}
+
+export const mockAnalyticsMetrics: AnalyticsMetric[] = [
+  {
+    id: 'total-clicks',
+    label: 'Total Clicks',
+    value: '1,248',
+    trend: {
+      value: '+12.4% vs last week',
+      direction: 'up',
+      isPositive: true
+    },
+    icon: 'chart'
+  },
+  {
+    id: 'unique-visitors',
+    label: 'Unique Visitors',
+    value: '832',
+    trend: {
+      value: '+5.8% vs last week',
+      direction: 'up',
+      isPositive: true
+    },
+    icon: 'users'
+  },
+  {
+    id: 'bounce-rate',
+    label: 'Bounce Rate',
+    value: '42%',
+    trend: {
+      value: '-3.2% vs last week',
+      direction: 'down',
+      isPositive: true
+    },
+    icon: 'bounce'
+  },
+  {
+    id: 'avg-session',
+    label: 'Avg. Session',
+    value: '3m 24s',
+    trend: {
+      value: '+18s vs last week',
+      direction: 'up',
+      isPositive: true
+    },
+    icon: 'clock'
+  }
+]
+
+export const mockReferrersData: ReferrerData[] = [
+  {
+    id: 'direct',
+    source: 'Direct',
+    visits: 512,
+    color: '#94a3b8'
+  },
+  {
+    id: 'product-hunt',
+    source: 'Product Hunt',
+    visits: 238,
+    color: '#64748b'
+  },
+  {
+    id: 'twitter',
+    source: 'Twitter',
+    visits: 174,
+    color: '#475569'
+  },
+  {
+    id: 'blog',
+    source: 'Blog',
+    visits: 104,
+    color: '#334155'
+  }
+]
+
+export const mockReferrersMaxVisits = Math.max(...mockReferrersData.map((r) => r.visits))
+
+export const mockDevicesData: DeviceData[] = [
+  {
+    id: 'desktop',
+    device: 'Desktop',
+    percentage: 74,
+    color: '#3b82f6'
+  },
+  {
+    id: 'mobile',
+    device: 'Mobile',
+    percentage: 22,
+    color: '#64748b'
+  },
+  {
+    id: 'tablet',
+    device: 'Tablet',
+    percentage: 4,
+    color: '#94a3b8'
+  }
+]
+
+export const mockTrafficDataLastMonth: TrafficDataPoint[] = [
+  { day: 'Week 1', clicks: 4520, visitors: 3200 },
+  { day: 'Week 2', clicks: 5180, visitors: 3650 },
+  { day: 'Week 3', clicks: 4890, visitors: 3420 },
+  { day: 'Week 4', clicks: 5640, visitors: 4100 }
+]
+
+export const mockTrafficDataLastYear: TrafficDataPoint[] = [
+  { day: 'Jan', clicks: 18500, visitors: 12400 },
+  { day: 'Feb', clicks: 21200, visitors: 14800 },
+  { day: 'Mar', clicks: 24600, visitors: 17200 },
+  { day: 'Apr', clicks: 22800, visitors: 15900 },
+  { day: 'May', clicks: 26400, visitors: 18600 },
+  { day: 'Jun', clicks: 28900, visitors: 20100 },
+  { day: 'Jul', clicks: 31200, visitors: 22400 },
+  { day: 'Aug', clicks: 29800, visitors: 21200 },
+  { day: 'Sep', clicks: 27500, visitors: 19800 },
+  { day: 'Oct', clicks: 30100, visitors: 21600 },
+  { day: 'Nov', clicks: 32800, visitors: 23400 },
+  { day: 'Dec', clicks: 35200, visitors: 25100 }
+]
+
+export const mockExtendedReferrersData: ReferrerData[] = [
+  { id: 'direct', source: 'Direct', visits: 512, color: '#94a3b8' },
+  { id: 'product-hunt', source: 'Product Hunt', visits: 238, color: '#64748b' },
+  { id: 'twitter', source: 'Twitter', visits: 174, color: '#475569' },
+  { id: 'blog', source: 'Blog', visits: 104, color: '#334155' },
+  { id: 'google', source: 'Google', visits: 89, color: '#1e293b' },
+  { id: 'linkedin', source: 'LinkedIn', visits: 67, color: '#0f172a' },
+  { id: 'facebook', source: 'Facebook', visits: 45, color: '#020617' },
+  { id: 'reddit', source: 'Reddit', visits: 32, color: '#64748b' }
+]
+
+export const mockAnalyticsMetricsLastWeek: AnalyticsMetric[] = [
+  {
+    id: 'total-clicks',
+    label: 'Total Clicks',
+    value: '1,110',
+    trend: {
+      value: '+8.2% vs previous week',
+      direction: 'up',
+      isPositive: true
+    },
+    icon: 'chart'
+  },
+  {
+    id: 'unique-visitors',
+    label: 'Unique Visitors',
+    value: '786',
+    trend: {
+      value: '+3.1% vs previous week',
+      direction: 'up',
+      isPositive: true
+    },
+    icon: 'users'
+  },
+  {
+    id: 'bounce-rate',
+    label: 'Bounce Rate',
+    value: '45.2%',
+    trend: {
+      value: '+1.8% vs previous week',
+      direction: 'up',
+      isPositive: false
+    },
+    icon: 'bounce'
+  },
+  {
+    id: 'avg-session',
+    label: 'Avg. Session',
+    value: '3m 06s',
+    trend: {
+      value: '-12s vs previous week',
+      direction: 'down',
+      isPositive: false
+    },
+    icon: 'clock'
   }
 ]
 
@@ -465,7 +668,6 @@ export const mockUsers: User[] = [
     updatedAt: '2024-01-16T13:15:00Z',
     lastLogin: '2023-10-15T16:25:00Z'
   },
-  // Additional users for more comprehensive testing
   {
     id: '11',
     firstName: 'Emily',

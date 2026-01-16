@@ -3,6 +3,7 @@ import DashboardLayout from '@/components/layouts/dashboard-layout'
 import MainLayout from '@/components/layouts/main-layout'
 import SettingsLayout from '@/components/layouts/settings-layout'
 import path from '@/constants/path'
+import Analytics from '@/routes/analytics'
 import Dashboard from '@/routes/dashboard'
 import Landing from '@/routes/landing'
 import Login from '@/routes/login'
@@ -25,6 +26,7 @@ function App() {
 
         <Route path='' element={<DashboardLayout />}>
           <Route path={path.dashboard} element={<Dashboard />} />
+          <Route path={path.analytics} element={<Analytics />} />
           <Route path={path.tasks} element={<Tasks />} />
           <Route path={path.users} element={<Users />} />
 

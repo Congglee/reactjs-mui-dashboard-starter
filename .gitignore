@@ -26,6 +26,6 @@ dist-ssr
 # Environment variables
 .env
 
-# Documentation
-documentation
+# Personal markdown notes
+mdx
 
